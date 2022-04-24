@@ -2,9 +2,13 @@
 Builds a lab of 7 virtual machines. 
 
 ### Status
-* [ ] Firewall
-* [ ] Domain Controller
-* 
+:clock4: Firewall  
+:soon: Domain Controller  
+:clock4: Member Server  
+:clock4: WEC Server  
+:clock4: Workstation  
+:clock4: SIEM Server  
+:soon: Adversary
 
 ### Requirements
 **Software**
