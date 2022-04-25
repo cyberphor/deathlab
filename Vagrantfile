@@ -1,21 +1,22 @@
 Vagrant.configure("2") do |config|
   # Firewall
-  # config.vm.define "firewall" do |firewall|
-  #   firewall.vm.hostname = "firewall"
-  #   firewall.vm.box = "cmad/pfsense"
-  #   firewall.vm.provider "virtualbox" do |vb|
-  #     vb.name = "Firewall"
-  #     vb.cpus = 1
-  #     vb.memory = 1024
-  #     vb.check_guest_additions = false
-  #     vb.gui = false
-  #   end
-  #   firewall.vm.network :private_network,
-  #     name: "VirtualBox Host-Only Ethernet Adapter"
-  #     ip: "192.168.5.254", 
-  #     netmask: "255.255.255.0"
-  #   firewall.vm.communicator = "ssh"
-  # end
+  config.vm.define "firewall" do |firewall|
+    firewall.vm.hostname = "firewall"
+    firewall.vm.box = "cmad/pfsense"
+    firewall.vm.provider "virtualbox" do |vb|
+      vb.name = "Firewall"
+      vb.cpus = 1
+      vb.memory = 1024
+      vb.check_guest_additions = false
+      vb.gui = false
+    end
+    firewall.vm.network :private_network,
+      name: "VirtualBox Host-Only Ethernet Adapter"
+      ip: "192.168.5.254", 
+      netmask: "255.255.255.0",
+      dns: "8.8.8.8"
+    firewall.vm.communicator = "ssh"
+  end
 
   # Domain Controller
   config.vm.define "dc" do |dc|
@@ -26,12 +27,14 @@ Vagrant.configure("2") do |config|
       vb.cpus = 2
       vb.memory = 2048
       vb.check_guest_additions = false
-      vb.gui = true
+      vb.gui = false
     end
     dc.vm.network :private_network,
       name: "VirtualBox Host-Only Ethernet Adapter",
       ip: "192.168.5.10",
-      netmask: "255.255.255.0"
+      netmask: "255.255.255.0",
+      gateway: "192.168.5.254",
+      dns: "192.168.5.10"
     dc.vm.communicator = "winrm"
     dc.vm.provision "shell", inline: 'New-Item -Type Directory -Path "C:\Tools"'
   end
@@ -50,7 +53,9 @@ Vagrant.configure("2") do |config|
   #   ms.vm.network :private_network,
   #     name: "VirtualBox Host-Only Ethernet Adapter",
   #     ip: "192.168.5.11", 
-  #     netmask: "255.255.255.0"
+  #     netmask: "255.255.255.0",
+  #     gateway: "192.168.5.254",
+  #     dns: "192.168.5.10"
   #   ms.vm.communicator = "winrm"
   # end
 
@@ -68,7 +73,9 @@ Vagrant.configure("2") do |config|
   #   wec.vm.network :private_network,
   #     name: "VirtualBox Host-Only Ethernet Adapter",
   #     ip: "192.168.5.12", 
-  #     netmask: "255.255.255.0"
+  #     netmask: "255.255.255.0",
+  #     gateway: "192.168.5.254",
+  #     dns: "192.168.5.10"
   #   wec.vm.communicator = "winrm"
   # end
 
@@ -86,7 +93,9 @@ Vagrant.configure("2") do |config|
   #   ws.vm.network :private_network,
   #     name: "VirtualBox Host-Only Ethernet Adapter",
   #     ip: "192.168.5.69", 
-  #     netmask: "255.255.255.0"
+  #     netmask: "255.255.255.0",
+  #     gateway: "192.168.5.254",
+  #     dns: "192.168.5.10"
   #   ws.vm.communicator = "winrm"
   # end
 
@@ -104,7 +113,9 @@ Vagrant.configure("2") do |config|
   #   siem.vm.network :private_network,
   #     name: "VirtualBox Host-Only Ethernet Adapter",
   #     ip: "192.168.5.100", 
-  #     netmask: "255.255.255.0"
+  #     netmask: "255.255.255.0",
+  #     gateway: "192.168.5.254",
+  #     dns: "192.168.5.10"
   #   siem.vm.communicator = "ssh"
   # end
 
@@ -122,7 +133,10 @@ Vagrant.configure("2") do |config|
     adversary.vm.network :private_network,
       name: "VirtualBox Host-Only Ethernet Adapter",
       ip: "192.168.5.86", 
-      netmask: "255.255.255.0"
+      netmask: "255.255.255.0",
+      gateway: "192.168.5.254",
+      dns: "8.8.8.8"
     adversary.vm.communicator = "ssh"
+    adversary.vm.provision "shell", path: "Provisioning-Scripts/adversary.sh", privileged: true
   end
 end
