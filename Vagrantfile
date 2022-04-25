@@ -11,7 +11,7 @@ Vagrant.configure("2") do |config|
       vb.gui = false
     end
     firewall.vm.network :private_network,
-      name: "VirtualBox Host-Only Ethernet Adapter"
+      name: "VirtualBox Host-Only Ethernet Adapter",
       ip: "192.168.5.254", 
       netmask: "255.255.255.0",
       dns: "8.8.8.8"
