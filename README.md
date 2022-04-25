@@ -2,7 +2,7 @@
 Builds a lab of 7 virtual machines. 
 
 ### Status
-:clock4: Firewall  
+:soon: Firewall  
 :soon: Domain Controller  
 :clock4: Member Server  
 :clock4: WEC Server  

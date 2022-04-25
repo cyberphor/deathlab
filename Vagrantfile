@@ -2,7 +2,7 @@ Vagrant.configure("2") do |config|
   # Firewall
   config.vm.define "firewall" do |firewall|
     firewall.vm.hostname = "firewall"
-    firewall.vm.box = "cmad/pfsense"
+    firewall.vm.box = "kennyl/pfsense"
     firewall.vm.provider "virtualbox" do |vb|
       vb.name = "Firewall"
       vb.cpus = 1
