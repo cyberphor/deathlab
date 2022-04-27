@@ -1,22 +1,22 @@
 Vagrant.configure("2") do |config|
   # Firewall
-  config.vm.define "firewall" do |firewall|
-    firewall.vm.hostname = "firewall"
-    firewall.vm.box = "kennyl/pfsense"
-    firewall.vm.provider "virtualbox" do |vb|
-      vb.name = "Firewall"
-      vb.cpus = 1
-      vb.memory = 1024
-      vb.check_guest_additions = false
-      vb.gui = false
-    end
-    firewall.vm.network :private_network,
-      name: "VirtualBox Host-Only Ethernet Adapter",
-      ip: "192.168.5.254", 
-      netmask: "255.255.255.0",
-      dns: "8.8.8.8"
-    firewall.vm.communicator = "ssh"
-  end
+  # config.vm.define "firewall" do |firewall|
+  #   firewall.vm.hostname = "firewall"
+  #   firewall.vm.box = "centos/7"
+  #   firewall.vm.provider "virtualbox" do |vb|
+  #     vb.name = "Firewall"
+  #     vb.cpus = 1
+  #     vb.memory = 1024
+  #     vb.check_guest_additions = false
+  #     vb.gui = false
+  #   end
+  #   firewall.vm.network :private_network,
+  #     name: "VirtualBox Host-Only Ethernet Adapter",
+  #     ip: "192.168.5.254", 
+  #     netmask: "255.255.255.0",
+  #     dns: "8.8.8.8"
+  #   firewall.vm.communicator = "ssh"
+  # end
 
   # Domain Controller
   config.vm.define "dc" do |dc|
@@ -36,7 +36,11 @@ Vagrant.configure("2") do |config|
       gateway: "192.168.5.254",
       dns: "192.168.5.10"
     dc.vm.communicator = "winrm"
-    dc.vm.provision "shell", inline: 'New-Item -Type Directory -Path "C:\Tools"'
+    dc.vm.provision "shell", path: "Provisioning-Scripts/Domain-Controller/New-AdForest.ps1"
+    # dc.vm.provision "shell", inline: "Restart-Computer"
+    dc.vm.provision "shell", path: "Provisioning-Scripts/Domain-Controller/New-AdDomainAdmin.ps1"
+    # Audit Policy GPO
+    
   end
 
   # Member Server
@@ -120,23 +124,23 @@ Vagrant.configure("2") do |config|
   # end
 
   # Adversary
-  config.vm.define "adversary" do |adversary|
-    adversary.vm.hostname = "adversary"
-    adversary.vm.box = "kalilinux/rolling"
-    adversary.vm.provider "virtualbox" do |vb|
-      vb.name = "Adversary"
-      vb.cpus = 2
-      vb.memory = 4096
-      vb.check_guest_additions = false
-      vb.gui = true
-    end
-    adversary.vm.network :private_network,
-      name: "VirtualBox Host-Only Ethernet Adapter",
-      ip: "192.168.5.86", 
-      netmask: "255.255.255.0",
-      gateway: "192.168.5.254",
-      dns: "8.8.8.8"
-    adversary.vm.communicator = "ssh"
-    adversary.vm.provision "shell", path: "Provisioning-Scripts/adversary.sh", privileged: true
-  end
+  # config.vm.define "adversary" do |adversary|
+  #   adversary.vm.hostname = "adversary"
+  #   adversary.vm.box = "kalilinux/rolling"
+  #   adversary.vm.provider "virtualbox" do |vb|
+  #     vb.name = "Adversary"
+  #     vb.cpus = 2
+  #     vb.memory = 4096
+  #     vb.check_guest_additions = false
+  #     vb.gui = true
+  #   end
+  #   adversary.vm.network :private_network,
+  #     name: "VirtualBox Host-Only Ethernet Adapter",
+  #     ip: "192.168.5.86", 
+  #     netmask: "255.255.255.0",
+  #     gateway: "192.168.5.254",
+  #     dns: "8.8.8.8"
+  #   adversary.vm.communicator = "ssh"
+  #   adversary.vm.provision "shell", path: "Provisioning-Scripts/adversary.sh", privileged: true
+  # end
 end
