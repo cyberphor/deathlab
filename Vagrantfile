@@ -43,12 +43,12 @@ Vagrant.configure("2") do |config|
     dc.vm.provision "shell", path: "Provisioning-Scripts/Domain-Controller/New-AdForest.ps1"
     dc.vm.provision "reload"
     dc.vm.provision "shell", path: "Provisioning-Scripts/Domain-Controller/New-AdDomainAdmin.ps1"
-    # dc.vm.provision "shell", path: "Provisioning-Scripts/Domain-Controller/New-GpAuditPolicy.ps1"
-    # dc.vm.provision "shell", path: "Provisioning-Scripts/Domain-Controller/New-GpWindowsRemoteManagement.ps1"
-    # dc.vm.provision "shell", path: "Provisioning-Scripts/Domain-Controller/New-GpWindowsEventForwarding.ps1"
+    # dc.vm.provision "shell", path: "Provisioning-Scripts/Domain-Controller/New-GpoAuditPolicy.ps1"
+    # dc.vm.provision "shell", path: "Provisioning-Scripts/Domain-Controller/New-GpoWindowsRemoteManagement.ps1"
+    # dc.vm.provision "shell", path: "Provisioning-Scripts/Domain-Controller/New-GpoWindowsEventForwarding.ps1"
   end
 
-  # Member Server
+  # Member Server (Web Server, File Server)
   # config.vm.define "ms" do |ms|
   #   ms.vm.hostname = "ms1"
   #   ms.vm.box = "salesforce/server2019"
