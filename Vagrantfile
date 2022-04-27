@@ -1,3 +1,7 @@
+unless Vagrant.has_plugin?("vagrant-reload")
+  system('vagrant plugin install vagrant-reload')
+end
+
 Vagrant.configure("2") do |config|
   # Firewall
   # config.vm.define "firewall" do |firewall|
@@ -37,10 +41,11 @@ Vagrant.configure("2") do |config|
       dns: "192.168.5.10"
     dc.vm.communicator = "winrm"
     dc.vm.provision "shell", path: "Provisioning-Scripts/Domain-Controller/New-AdForest.ps1"
-    # dc.vm.provision "shell", inline: "Restart-Computer"
+    dc.vm.provision "reload"
     dc.vm.provision "shell", path: "Provisioning-Scripts/Domain-Controller/New-AdDomainAdmin.ps1"
-    # Audit Policy GPO
-    
+    # dc.vm.provision "shell", path: "Provisioning-Scripts/Domain-Controller/New-GpAuditPolicy.ps1"
+    # dc.vm.provision "shell", path: "Provisioning-Scripts/Domain-Controller/New-GpWindowsRemoteManagement.ps1"
+    # dc.vm.provision "shell", path: "Provisioning-Scripts/Domain-Controller/New-GpWindowsEventForwarding.ps1"
   end
 
   # Member Server
