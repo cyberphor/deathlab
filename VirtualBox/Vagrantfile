@@ -25,6 +25,8 @@ Vagrant.configure("2") do |config|
   # Domain Controller
   config.vm.define "dc" do |dc|
     dc.vm.hostname = "dc1"
+    dc.vm.guest = :windows
+    dc.vm.communicator = "winrm"
     dc.vm.box = "salesforce/server2019"
     dc.vm.provider "virtualbox" do |vb|
       vb.name = "Domain-Controller"
@@ -39,7 +41,6 @@ Vagrant.configure("2") do |config|
       netmask: "255.255.255.0",
       gateway: "192.168.5.254",
       dns: "192.168.5.10"
-    dc.vm.communicator = "winrm"
     dc.vm.provision "shell", path: "Provisioning-Scripts/Domain-Controller/New-AdForest.ps1"
     dc.vm.provision "reload"
     dc.vm.provision "shell", path: "Provisioning-Scripts/Domain-Controller/New-AdDomainAdmin.ps1"
