@@ -1,4 +1,4 @@
-### Virtual Machines
+## Virtual Machines
 **Firewall**  
 * pfsense
 * Apache Guacamole
