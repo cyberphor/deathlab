@@ -10,15 +10,18 @@ Param(
     [String]$DomainAdminUserPrincipalName = $DomainAdminSamAccountName + '@' + $DomainName
 )
 
-New-ADUser `
-    -GivenName $DomainAdminFirstName `
-    -Surname $DomainAdminLastName `
-    -Name $DomainAdminFullName `
-    -SamAccountName $DomainAdminSamAccountName `
-    -UserPrincipalName $DomainAdminUserPrincipalName `
-    -AccountPassword $DomainAdminPassword `
-    -ChangePasswordAtLogon $true `
-    -Description $DomainAdminDescription 
+$Parameters = @{
+    GivenName               = $DomainAdminFirstName
+    Surname                 = $DomainAdminLastName
+    Name                    = $DomainAdminFullName 
+    SamAccountName          = $DomainAdminSamAccountName 
+    UserPrincipalName       = $DomainAdminUserPrincipalName 
+    AccountPassword         = $DomainAdminPassword 
+    ChangePasswordAtLogon   = $true 
+    Description             = $DomainAdminDescription 
+}
+
+New-ADUser @Parameters
 
 Add-ADGroupMember -Identity $DomainAdminGroup -Members $DomainAdminSamAccountName
 

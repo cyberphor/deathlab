@@ -5,9 +5,12 @@
 
 Install-WindowsFeature DNS, AD-Domain-Services -IncludeManagementTools
 
-Install-ADDSForest `
-    -DomainName $DomainName `
-    -InstallDns `
-    -SafeModeAdministratorPassword $SafeModeAdministratorPassword `
-    -NoRebootOnCompletion `
-    -Force
+$Parameters = @{
+    DomainName                    = $DomainName
+    InstallDns                    = $True
+    SafeModeAdministratorPassword = $SafeModeAdministratorPassword
+    NoRebootOnCompletion          = $True
+    Force                         = $True
+}
+
+Install-ADDSForest @Parameters
