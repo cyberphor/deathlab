@@ -24,10 +24,15 @@ Vagrant.configure("2") do |config|
 
   # Domain Controller
   config.vm.define "dc" do |dc|
-    dc.vm.hostname = "dc1"
-    dc.vm.guest = :windows
-    dc.vm.communicator = "winrm"
     dc.vm.box = "salesforce/server2019"
+    dc.vm.network :private_network,
+      name: "VirtualBox Host-Only Ethernet Adapter",
+      ip: "192.168.5.10",
+      netmask: "255.255.255.0",
+      gateway: "192.168.5.254",
+      dns: "192.168.5.10"
+    dc.vm.communicator = "winrm"
+    dc.vm.hostname = "dc1"
     dc.vm.provider "virtualbox" do |vb|
       vb.name = "Domain-Controller"
       vb.cpus = 2
@@ -35,12 +40,6 @@ Vagrant.configure("2") do |config|
       vb.check_guest_additions = false
       vb.gui = false
     end
-    dc.vm.network :private_network,
-      name: "VirtualBox Host-Only Ethernet Adapter",
-      ip: "192.168.5.10",
-      netmask: "255.255.255.0",
-      gateway: "192.168.5.254",
-      dns: "192.168.5.10"
     dc.vm.provision "shell", path: "Provisioning-Scripts/Domain-Controller/New-AdForest.ps1"
     dc.vm.provision "reload"
     dc.vm.provision "shell", path: "Provisioning-Scripts/Domain-Controller/New-AdDomainAdmin.ps1"
