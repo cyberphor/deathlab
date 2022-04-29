@@ -13,6 +13,5 @@ $Parameters = @{
     Enabled                 = $true
 }
 
-(Get-Service "ADWS").WaitForStatus("Running")
 New-ADUser @Parameters
 Add-ADGroupMember -Identity "Domain Admins" -Members $Parameters["SamAccountName"]
