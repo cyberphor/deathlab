@@ -1,9 +1,9 @@
 ## Requirements
-**Software**
+**Software** (work-in-progress)  
 * VirtualBox
 * Vagrant
 
-**Hardware**
+**Hardware** (work-in-progress)  
 * CPU: 16 cores
 * RAM: 32 GBs
 * Disk Space: 500 GBs 

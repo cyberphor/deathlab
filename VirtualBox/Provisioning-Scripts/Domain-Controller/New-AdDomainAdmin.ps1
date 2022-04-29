@@ -1,27 +1,15 @@
-Param(
-    [String]$DomainName = 'evil.corp',
-    [String]$DomainAdminFirstName = 'Elliot',
-    [String]$DomainAdminLastName = 'Alderson',
-    [SecureString]$DomainAdminPassword = $(ConvertTo-SecureString -AsPlainText -Force "1qaz2wsx!QAZ@WSX"),
-    [String]$DomainAdminDescription = 'Domain Administrator',
-    [String]$DomainAdminGroup = 'Domain Admins',
-    [String]$DomainAdminFullName = $DomainAdminLastName + ', ' + $DomainAdminFirstName,
-    [String]$DomainAdminAccountName = $DomainAdminFirstName.ToLower() + '.' + $DomainAdminLastName.ToLower(),
-    [String]$DomainAdminUserPrincipalName = $DomainAdminSamAccountName + '@' + $DomainName
-)
-
 $Parameters = @{
-    GivenName               = $DomainAdminFirstName
-    Surname                 = $DomainAdminLastName
-    Name                    = $DomainAdminFullName 
-    SamAccountName          = $DomainAdminSamAccountName 
-    UserPrincipalName       = $DomainAdminUserPrincipalName 
-    AccountPassword         = $DomainAdminPassword 
+    GivenName               = "Elliot"
+    Surname                 = "Alderson"
+    Name                    = "Alderson, Elliot" 
+    SamAccountName          = "elliot.alderson.da" 
+    UserPrincipalName       = "elliot.alderson.da@evil.corp" 
+    AccountPassword         = $(ConvertTo-SecureString -AsPlainText -Force "1qaz2wsx!QAZ@WSX")
     ChangePasswordAtLogon   = $true 
-    Description             = $DomainAdminDescription 
+    Enabled                 = $true
 }
 
 (Get-Service "ADWS").WaitForStatus("Running")
 New-ADUser @Parameters
-Add-ADGroupMember -Identity $DomainAdminGroup -Members $DomainAdminSamAccountName
-Enable-ADAccount -Identity $DomainAdminSamAccountName
+Add-ADGroupMember -Identity "Domain Admins" -Members "elliot.alderson.da"
+Enable-ADAccount -Identity "elliot.alderson.da"

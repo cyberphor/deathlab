@@ -1,22 +1,22 @@
 ## Virtual Machines
-**Firewall**  
+**Firewall** (work-in-progress)  
 * pfsense
 * Apache Guacamole
 
-**Domain Controller**  
+**Domain Controller** (work-in-progress)  
 * Windows Server 2019
 
-**Member Server**  
+**Member Server** (work-in-progress)  
 * Windows Server 2019
 
-**WEC Server**  
+**WEC Server** (work-in-progress)  
 * Windows Server 2019
 
-**Workstation**  
+**Workstation** (work-in-progress)  
 * Windows 10
 
-**SIEM Server**  
+**SIEM Server** (work-in-progress)  
 * CentOS 7
 
-**Adversary**  
+**Adversary** (work-in-progress)  
 * Kali Linux
