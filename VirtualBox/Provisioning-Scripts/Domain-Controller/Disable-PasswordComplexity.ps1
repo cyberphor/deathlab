@@ -1,4 +1,4 @@
-$SecurityPolicy = C:\secpol.cfg
+$SecurityPolicy = "C:\secpol.cfg"
 
 secedit /export /cfg $SecurityPolicy
 

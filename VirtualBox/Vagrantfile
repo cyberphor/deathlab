@@ -1,7 +1,3 @@
-unless Vagrant.has_plugin?("vagrant-reload")
-  system('vagrant plugin install vagrant-reload')
-end
-
 Vagrant.configure("2") do |config|
   # Firewall
   # config.vm.define "firewall" do |firewall|
@@ -29,9 +25,10 @@ Vagrant.configure("2") do |config|
       name: "VirtualBox Host-Only Ethernet Adapter",
       ip: "192.168.5.10",
       netmask: "255.255.255.0",
-      gateway: "192.168.5.254",
-      dns: "192.168.5.10"
+      gateway: "192.168.5.254"
     dc.vm.communicator = "winrm"
+    dc.winrm.transport = "plaintext" # see Requirements
+    dc.winrm.basic_auth_only = true # see Requirements
     dc.vm.hostname = "dc1"
     dc.vm.provider "virtualbox" do |vb|
       vb.name = "Domain-Controller"
@@ -40,8 +37,6 @@ Vagrant.configure("2") do |config|
       vb.check_guest_additions = false
       vb.gui = false
     end
-    dc.vm.provision "shell", path: "Provisioning-Scripts/Domain-Controller/Disable-PasswordComplexity.ps1"
-    dc.vm.provision "shell", path: "Provisioning-Scripts/Domain-Controller/Set-LocalAdminPassword.ps1"
     dc.vm.provision "shell", path: "Provisioning-Scripts/Domain-Controller/New-AdForest.ps1"
     dc.vm.provision "shell", reboot: true
     dc.vm.provision "shell", path: "Provisioning-Scripts/Domain-Controller/New-AdDomainAdmin.ps1"
