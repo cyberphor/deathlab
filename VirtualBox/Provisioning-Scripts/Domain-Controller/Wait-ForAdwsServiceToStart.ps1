@@ -1,6 +1,8 @@
-$Retries = 3
+$Retries = 10
 do {
-    $AdwsServiceHasStarted = Get-Service "ADWS" | Where-Object { $_.status -eq "Running" }
+    Write-Output "Waiting for Active Directory Web Services to start..."
+    $AdwsServiceHasStarted = (Get-Service "ADWS").Status -eq "Running"
+    $AdwsServiceHasStarted
     $Retries--
-    Start-Sleep -Seconds 10
+    Start-Sleep -Seconds 60
 } until ($AdwsServiceHasStarted -or $Retries -eq 0)
