@@ -21,11 +21,7 @@ $Parameters = @{
     Description             = $DomainAdminDescription 
 }
 
-while ($AdWebServicesIsNotRunning) {
-    Start-Sleep -Seconds 5
-    $AdWebServicesIsNotRunning = (Get-Service "ADWS").Status -eq "Running"
-}
-
+(Get-Service "ADWS").WaitForStatus("Running")
 New-ADUser @Parameters
 Add-ADGroupMember -Identity $DomainAdminGroup -Members $DomainAdminSamAccountName
 Enable-ADAccount -Identity $DomainAdminSamAccountName
