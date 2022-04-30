@@ -5,12 +5,9 @@ end
 Vagrant.configure("2") do |config|
     # Domain Controller
     config.vm.define "dc" do |dc|
-        dc.vm.hostname = "dc1"
-        dc.vm.guest = :windows
-        dc.vm.communicator = "winrm"
         dc.vm.box = "gusztavvargadr/windows-server"
         dc.vm.provider "vmware_esxi" do |esxi|
-            esxi.esxi_hostname = "10.10.10.6"
+            esxi.esxi_hostname = "10.10.10.5"
             esxi.esxi_username = "root"
             esxi.esxi_password = "1qaz2wsx!QAZ@WSX"
             esxi.esxi_disk_store = "datastore1"
@@ -18,5 +15,7 @@ Vagrant.configure("2") do |config|
             esxi.guest_numvcpus = "2"
             esxi.guest_memsize = "2048"
         end
+        dc.vm.communicator = "winrm"
+        dc.vm.hostname = "dc1"
     end
 end
