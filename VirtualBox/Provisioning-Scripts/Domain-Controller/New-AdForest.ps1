@@ -1,14 +1,9 @@
-﻿Param(
-    [String]$DomainName = 'evil.corp',
-    [SecureString]$SafeModeAdministratorPassword = $(ConvertTo-SecureString -AsPlainText -Force "1qaz2wsx!QAZ@WSX")
-)
-
-Install-WindowsFeature DNS, AD-Domain-Services -IncludeManagementTools
+﻿Install-WindowsFeature DNS, AD-Domain-Services -IncludeManagementTools
 
 $Parameters = @{
-    DomainName                    = $DomainName
+    DomainName                    = "evil.corp"
     InstallDns                    = $True
-    SafeModeAdministratorPassword = $SafeModeAdministratorPassword
+    SafeModeAdministratorPassword = $(ConvertTo-SecureString -AsPlainText -Force "1qaz2wsx!QAZ@WSX")
     NoRebootOnCompletion          = $True
     Force                         = $True
 }
