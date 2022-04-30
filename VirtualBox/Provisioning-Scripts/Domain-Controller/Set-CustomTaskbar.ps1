@@ -1,0 +1,1 @@
+reg import "C:\Vagrant\Registry-Keys\CustomTaskbar.reg"

@@ -45,6 +45,7 @@ Vagrant.configure("2") do |config|
     dc.vm.provision "shell", path: "Provisioning-Scripts/Domain-Controller/Wait-ForAdwsServiceToStart.ps1"
     dc.vm.provision "shell", path: "Provisioning-Scripts/Domain-Controller/New-AdDomainAdmin.ps1"
     dc.vm.provision "shell", path: "Provisioning-Scripts/Domain-Controller/New-GpoWallpaper.ps1"
+    dc.vm.provision "shell", path: "Provisioning-Scripts/Domain-Controller/Set-CustomTaskbar.ps1"
   end
 
   # Member Server (Web Server, File Server)
