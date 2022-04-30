@@ -3,7 +3,7 @@ Param(
 )
 
 $Policy = 'Windows-Event-Forwarding'
-$Comment = 'Configures workstations and member servers to forward Windows events to the domain Windows Event Collector.'
+$Comment = 'Configures domain-joined computers to forward Windows events to the domain Windows Event Collector.'
 New-GPO -Name $Policy -Comment $Comment
 
 $Key = 'HKLM\Software\Policies\Microsoft\Windows\EventLog\EventForwarding\SubscriptionManager'

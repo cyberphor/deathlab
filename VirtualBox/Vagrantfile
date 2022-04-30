@@ -1,4 +1,8 @@
 Vagrant.configure("2") do |config|
+  unless Vagrant.has_plugin?("vagrant-vbguest") # see Requirements
+    system("vagrant plugin install vagrant-vbguest") 
+  end
+
   # Firewall
   # config.vm.define "firewall" do |firewall|
   #   firewall.vm.hostname = "firewall"
@@ -25,7 +29,6 @@ Vagrant.configure("2") do |config|
       vb.name = "Domain-Controller"
       vb.cpus = 2
       vb.memory = 2048
-      vb.check_guest_additions = false
       vb.gui = false
     end
     dc.vm.network :private_network, 
@@ -33,7 +36,6 @@ Vagrant.configure("2") do |config|
       ip: "192.168.5.10", 
       netmask: "255.255.255.0", 
       gateway: "192.168.5.254"
-    dc.vm.synced_folder 'Wallpaper', '/Wallpaper', disabled: false
     dc.vm.communicator = "winrm"
     dc.winrm.transport = "plaintext" # see Requirements
     dc.winrm.basic_auth_only = true # see Requirements
@@ -143,6 +145,6 @@ Vagrant.configure("2") do |config|
   #     gateway: "192.168.5.254",
   #     dns: "8.8.8.8"
   #   adversary.vm.communicator = "ssh"
-  #   adversary.vm.provision "shell", path: "Provisioning-Scripts/adversary.sh", privileged: true
+  #   adversary.vm.provision "shell", path: "Provisioning-Scripts/Adversary/Set-Wallpaper.sh"
   # end
 end
