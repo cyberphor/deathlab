@@ -2,13 +2,16 @@
 $Name = "Wallpaper"
 New-GPO -Name $Name -Comment "Sets the wallpaper to the company logo."
 
+# create a share
+New-Item -ItemType Directory -Path "C:\Share\"
+New-SmbShare -Name "Share" -Path "C:\Share\" -FullAccess "Administrators" -ReadAccess "Everyone"
+
 # copy the wallpaper to the guest
-$PathToWallpaper = "C:\Windows\SYSVOL\Domain\Scripts\Wallpaper.jpg"
-Copy-Item -Path "C:\Vagrant\Wallpapers\evil-corp-wallpaper.jpg" -Destination $PathToWallpaper
+Copy-Item -Path "C:\Vagrant\Wallpapers\evil-corp-wallpaper.jpg" -Destination "C:\Share\Wallpaper.jpg"
 
 # set the wallpaper path
 $Key = "HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\System"
-Set-GPRegistryValue -Name $Name -Key $Key -ValueName $Name -Value $PathToWallpaper -Type "String"
+Set-GPRegistryValue -Name $Name -Key $Key -ValueName $Name -Value "\\$env:COMPUTERNAME\Share\Wallpaper.jpg" -Type "String"
 
 # set the wallpaper style
 Set-GPRegistryValue -Name $Name -Key $Key -ValueName "WallpaperStyle" -Value "0" -Type "String"

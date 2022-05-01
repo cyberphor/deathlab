@@ -9,4 +9,4 @@ $Value = 'Server=http://' + $Collector + ':5985/wsman/SubscriptionManager/WEC,Re
 Set-GPRegistryValue -Name $Name -Key $Key -Value $Value -Type "String"
 
 # link the GPO
-New-GPLink -Name $Policy -Target $(Get-ADDomain -Current LocalComputer).DistinguishedName
+New-GPLink -Name $Name -Target $(Get-ADDomain -Current LocalComputer).DistinguishedName

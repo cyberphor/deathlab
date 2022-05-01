@@ -1,4 +1,4 @@
-## Requirements
+## Lab Requirements
 **Software** (work-in-progress)  
 * VirtualBox
 * Vagrant
