@@ -16,6 +16,18 @@ Vagrant.configure("2") do |config|
             esxi.guest_numvcpus = "2"
             esxi.guest_memsize = "2048"
         end
-        dc.vm.synced_folder ".", "/vagrant", disabled: true
+        dc.vm.network :private_network, 
+            name: "VirtualBox Host-Only Ethernet Adapter", 
+            ip: "192.168.5.10", 
+            netmask: "255.255.255.0"
+        dc.vm.communicator = "winrm"
+        dc.winrm.transport = "plaintext" # see Lab Requirements
+        dc.winrm.basic_auth_only = true # see Lab Requirements
+        dc.vm.hostname = "dc1"
+        dc.vm.provision "shell", path: "Provisioning-Scripts/Domain-Controller/New-AdForest.ps1"
+        dc.vm.provision "shell", reboot: true # see Lab Requirements
+        dc.vm.provision "shell", path: "Provisioning-Scripts/Domain-Controller/Set-DnsServer.ps1"
+        dc.vm.provision "shell", path: "Provisioning-Scripts/Domain-Controller/Wait-ForAllRequiredServicesToStart.ps1"
+        dc.vm.provision "shell", path: "Provisioning-Scripts/Domain-Controller/New-AdDomainAdmin.ps1"
     end
 end

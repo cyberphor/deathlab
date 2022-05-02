@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LayoutModificationTemplate
+    xmlns="http://schemas.microsoft.com/Start/2014/LayoutModification"
+    xmlns:defaultlayout="http://schemas.microsoft.com/Start/2014/FullDefaultLayout"
+    xmlns:start="http://schemas.microsoft.com/Start/2014/StartLayout"
+    xmlns:taskbar="http://schemas.microsoft.com/Start/2014/TaskbarLayout"
+    Version="1">
+  <CustomTaskbarLayoutCollection PinListPlacement="Replace">
+    <defaultlayout:TaskbarLayout>
+      <taskbar:TaskbarPinList>
+	<taskbar:DesktopApp DesktopApplicationLinkPath="%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Server Manager.lnk" />
+	<taskbar:DesktopApp DesktopApplicationLinkPath="%SystemRoot%\system32\dsa.msc" />
+        <taskbar:DesktopApp DesktopApplicationLinkPath="%SystemRoot%\system32\gpmc.msc" />
+        <taskbar:DesktopApp DesktopApplicationLinkPath="%windir%\system32\eventvwr.msc /s" />
+        <taskbar:DesktopApp DesktopApplicationLinkPath="%SystemRoot%\system32\WindowsPowerShell\v1.0\powershell.exe" />
+        <taskbar:DesktopApp DesktopApplicationLinkPath="%windir%\system32\WindowsPowerShell\v1.0\PowerShell_ISE.exe" />
+      </taskbar:TaskbarPinList>
+    </defaultlayout:TaskbarLayout>
+  </CustomTaskbarLayoutCollection>
+</LayoutModificationTemplate>
