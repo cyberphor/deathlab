@@ -4,7 +4,7 @@ Vagrantfiles and scripts for automating the deployment of a cyber defense lab.
 ### Development Status
 | Virtual Machine | VirtualBox | ESXi |
 | --------------- | :--------: | :--: |
-| Firewall | :yellow_circle: | :white_circle: |
+| Firewall | :green_circle: | :white_circle: |
 | Domain Controller | :green_circle: | :yellow_circle: |
 | Member Server | :white_circle: | :white_circle: |
 | WEC Server | :yellow_circle: | :white_circle: |
