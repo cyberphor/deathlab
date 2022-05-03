@@ -4,79 +4,81 @@ Vagrant.configure("2") do |config|
   end
 
   # Firewall
-  # config.vm.define "firewall" do |firewall|
-  #   firewall.vm.hostname = "firewall"
-  #   firewall.vm.box = "centos/7"
-  #   firewall.vm.provider "virtualbox" do |vb|
-  #     vb.name = "Firewall"
-  #     vb.cpus = 1
-  #     vb.memory = 1024
-  #     vb.check_guest_additions = false
-  #     vb.gui = false
-  #   end
-  #   firewall.vm.network :public_network,
-  #     name: "VirtualBox Host-Only Ethernet Adapter",
-  #     dhcp, 
-  #     dns: "8.8.8.8"
-  #   firewall.vm.network :private_network,
-  #     name: "VirtualBox Host-Only Ethernet Adapter",
-  #     ip: "192.168.5.254", 
-  #     netmask: "255.255.255.0",
-  #     dns: "8.8.8.8"
-  #   firewall.vm.communicator = "ssh"
-  # end
+  config.vm.define "firewall" do |firewall|
+    firewall.vm.box = "ksklareski/pfsense-ce"
+    firewall.vm.guest = :freebsd
+    firewall.vm.provider "virtualbox" do |vb|
+      vb.name = "Firewall"
+      vb.cpus = 2
+      vb.memory = 2048
+      vb.gui = false
+      vb.check_guest_additions = false
+    end
+    firewall.vm.network :private_network,
+      name: "VirtualBox Host-Only Ethernet Adapter",
+      ip: "192.168.5.254", 
+      netmask: "255.255.255.0"
+    firewall.vm.network "forwarded_port", guest: 80, host: 8888
+    firewall.vm.communicator = "ssh"
+    firewall.ssh.insert_key = $false # see Requirements
+    firewall.ssh.shell = "sh"
+    firewall.vm.hostname = "firewall"
+    firewall.vm.provision "file", source: "Configuration-Files/Firewall.xml", destination: "/tmp/config.xml"
+    firewall.vm.provision "shell", inline: "mv /tmp/config.xml /cf/conf/config.xml"
+    firewall.vm.provision "shell", inline: "rm /tmp/config.cache"
+  end
 
   # Domain Controller
-  config.vm.define "dc" do |dc|
-    dc.vm.box = "salesforce/server2019"
-    dc.vm.provider "virtualbox" do |vb|
-      vb.name = "Domain-Controller"
-      vb.cpus = 2
-      vb.memory = 2048
-      vb.gui = false
-    end
-    dc.vm.network :private_network, 
-      name: "VirtualBox Host-Only Ethernet Adapter", 
-      ip: "192.168.5.10", 
-      netmask: "255.255.255.0"
-    dc.vm.communicator = "winrm"
-    dc.winrm.transport = "plaintext" # see Lab Requirements
-    dc.winrm.basic_auth_only = true # see Lab Requirements
-    dc.vm.hostname = "dc1"
-    dc.vm.provision "shell", path: "Provisioning-Scripts/Domain-Controller/New-AdForest.ps1"
-    dc.vm.provision "shell", reboot: true # see Lab Requirements
-    dc.vm.provision "shell", path: "Provisioning-Scripts/Domain-Controller/Set-DnsServer.ps1"
-    dc.vm.provision "shell", path: "Provisioning-Scripts/Domain-Controller/Wait-ForAllRequiredServicesToStart.ps1"
-    dc.vm.provision "shell", path: "Provisioning-Scripts/Domain-Controller/New-AdDomainAdmin.ps1"
-    dc.vm.provision "shell", path: "Provisioning-Scripts/Domain-Controller/New-AdUserSet.ps1"
-    dc.vm.provision "shell", path: "Provisioning-Scripts/Domain-Controller/New-GpoWallpaper.ps1"
-    dc.vm.provision "shell", path: "Provisioning-Scripts/Domain-Controller/New-GpoDomainControllerTaskbar.ps1"
-    dc.vm.provision "shell", path: "Provisioning-Scripts/Domain-Controller/New-GpoAuditPolicy.ps1"
-    dc.vm.provision "shell", path: "Provisioning-Scripts/Domain-Controller/New-GpoWindowsRemoteManagement.ps1"
-    dc.vm.provision "shell", path: "Provisioning-Scripts/Domain-Controller/New-GpoWindowsEventForwarding.ps1"
-  end
+  # config.vm.define "dc" do |dc|
+  #   dc.vm.box = "salesforce/server2019"
+  #   dc.vm.provider "virtualbox" do |vb|
+  #     vb.name = "Domain-Controller"
+  #     vb.cpus = 2
+  #     vb.memory = 2048
+  #     vb.gui = false
+  #   end
+  #   dc.vm.network :private_network, 
+  #     name: "VirtualBox Host-Only Ethernet Adapter", 
+  #     ip: "192.168.5.10", 
+  #     netmask: "255.255.255.0"
+  #   dc.vm.communicator = "winrm"
+  #   dc.winrm.transport = "plaintext" # see Lab Requirements
+  #   dc.winrm.basic_auth_only = true # see Lab Requirements
+  #   dc.vm.hostname = "dc1"
+  #   dc.vm.provision "shell", path: "Provisioning-Scripts/Domain-Controller/New-AdForest.ps1"
+  #   dc.vm.provision "shell", reboot: true # see Lab Requirements
+  #   dc.vm.provision "shell", path: "Provisioning-Scripts/Domain-Controller/Set-DnsServer.ps1"
+  #   dc.vm.provision "shell", path: "Provisioning-Scripts/Domain-Controller/Wait-ForAllRequiredServicesToStart.ps1"
+  #   dc.vm.provision "shell", path: "Provisioning-Scripts/Domain-Controller/New-AdDomainAdmin.ps1"
+  #   dc.vm.provision "shell", path: "Provisioning-Scripts/Domain-Controller/New-AdUserSet.ps1"
+  #   dc.vm.provision "shell", path: "Provisioning-Scripts/Domain-Controller/New-GpoWallpaper.ps1"
+  #   dc.vm.provision "shell", path: "Provisioning-Scripts/Domain-Controller/New-GpoDomainControllerTaskbar.ps1"
+  #   dc.vm.provision "shell", path: "Provisioning-Scripts/Domain-Controller/New-GpoAuditPolicy.ps1"
+  #   dc.vm.provision "shell", path: "Provisioning-Scripts/Domain-Controller/New-GpoWindowsRemoteManagement.ps1"
+  #   dc.vm.provision "shell", path: "Provisioning-Scripts/Domain-Controller/New-GpoWindowsEventForwarding.ps1"
+  # end
 
   # Windows Event Collector (WEC) Server
-  config.vm.define "wec" do |wec|
-    wec.vm.box = "salesforce/server2019"
-    wec.vm.provider "virtualbox" do |vb|
-      vb.name = "WEC-Server"
-      vb.cpus = 2
-      vb.memory = 2048
-      vb.gui = false
-    end
-    wec.vm.network :private_network, 
-      name: "VirtualBox Host-Only Ethernet Adapter", 
-      ip: "192.168.5.12", 
-      netmask: "255.255.255.0"
-    wec.vm.communicator = "winrm"
-    wec.winrm.transport = "plaintext" # see Lab Requirements
-    wec.winrm.basic_auth_only = true # see Lab Requirements
-    wec.vm.hostname = "wec1"
-    wec.vm.provision "shell", path: "Provisioning-Scripts/WEC-Server/Set-DnsServer.ps1"
-    wec.vm.provision "shell", path: "Provisioning-Scripts/WEC-Server/Join-Domain.ps1"
-    wec.vm.provision "shell", reboot: true # see Lab Requirements
-  end
+  # config.vm.define "wec" do |wec|
+  #   wec.vm.box = "salesforce/server2019"
+  #   wec.vm.provider "virtualbox" do |vb|
+  #     vb.name = "WEC-Server"
+  #     vb.cpus = 2
+  #     vb.memory = 2048
+  #     vb.gui = false
+  #   end
+  #   wec.vm.network :private_network, 
+  #     name: "VirtualBox Host-Only Ethernet Adapter", 
+  #     ip: "192.168.5.12", 
+  #     netmask: "255.255.255.0"
+  #   wec.vm.communicator = "winrm"
+  #   wec.winrm.transport = "plaintext" # see Lab Requirements
+  #   wec.winrm.basic_auth_only = true # see Lab Requirements
+  #   wec.vm.hostname = "wec1"
+  #   wec.vm.provision "shell", path: "Provisioning-Scripts/WEC-Server/Set-DnsServer.ps1"
+  #   wec.vm.provision "shell", path: "Provisioning-Scripts/WEC-Server/Join-Domain.ps1"
+  #   wec.vm.provision "shell", reboot: true # see Lab Requirements
+  # end
 
   # Member Server (Web Server, File Server)
   # config.vm.define "ms" do |ms|
