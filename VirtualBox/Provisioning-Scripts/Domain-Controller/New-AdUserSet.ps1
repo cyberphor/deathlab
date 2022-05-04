@@ -1,4 +1,4 @@
-Import-Csv "C:\Vagrant\UserSet.csv" |
+Import-Csv "C:\Vagrant\Configuration-Files\UserSet.csv" |
 ForEach-Object {
     $Parameters = @{
         GivenName               = $_.GivenName
