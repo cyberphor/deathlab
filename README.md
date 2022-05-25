@@ -1,5 +1,5 @@
-## Cyber Defense Lab
-Vagrantfiles and scripts for automating the deployment of a home lab.
+## Cybersecurity Labs
+Resources for deploying and using cybersecurity labs.
 
 ### Development Status
 | Virtual Machine | VirtualBox | ESXi |
