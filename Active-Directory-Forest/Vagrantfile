@@ -8,8 +8,8 @@ Vagrant.configure("2") do |config|
       dc.vm.box = "salesforce/server2019"
       dc.vm.provider "virtualbox" do |vb|
         vb.name = "Domain-Controller"
-        vb.cpus = 2
-        vb.memory = 4096
+        vb.cpus = 4
+        vb.memory = 8192
         vb.gui = false
       end
       dc.vm.network :private_network, 
@@ -19,12 +19,12 @@ Vagrant.configure("2") do |config|
       dc.vm.communicator = "winrm"
       dc.winrm.transport = "plaintext" # see Lab Requirements
       dc.winrm.basic_auth_only = true # see Lab Requirements
-      dc.vm.hostname = "WTF5000DC1"
-      dc.vm.provision "shell", path: "Provisioning-Scripts/Domain-Controller/New-AdForest.ps1"
-      dc.vm.provision "shell", reboot: true # see Lab Requirements
+      dc.vm.hostname = "XOF5000DC1"
       dc.vm.provision "shell", path: "Provisioning-Scripts/Set-DnsServer.ps1"
-      dc.vm.provision "shell", path: "Provisioning-Scripts/Domain-Controller/Wait-ForAllRequiredServicesToStart.ps1"
-      dc.vm.provision "shell", path: "Provisioning-Scripts/Domain-Controller/New-AdDomainAdmin.ps1"
+      dc.vm.provision "shell", path: "Provisioning-Scripts/New-AdForest.ps1"
+      dc.vm.provision "shell", reboot: true # see Lab Requirements
+      dc.vm.provision "shell", path: "Provisioning-Scripts/Wait-ForAllRequiredServicesToStart.ps1"
+      dc.vm.provision "shell", path: "Provisioning-Scripts/New-AdDomainAdmin.ps1"
     end
   
     # Workstation
@@ -32,8 +32,8 @@ Vagrant.configure("2") do |config|
       ws.vm.box = "StefanScherer/windows_10"
       ws.vm.provider "virtualbox" do |vb|
         vb.name = "Workstation"
-        vb.cpus = 2
-        vb.memory = 4096
+        vb.cpus = 4
+        vb.memory = 8192
         vb.gui = false
       end
       ws.vm.network :private_network,
@@ -43,8 +43,9 @@ Vagrant.configure("2") do |config|
       ws.vm.communicator = "winrm"
       ws.winrm.transport = "plaintext" # see Lab Requirements
       ws.winrm.basic_auth_only = true # see Lab Requirements
-      ws.vm.hostname = "WTF5000WS1"
+      ws.vm.hostname = "XOF5000WS1"
       ws.vm.provision "shell", path: "Provisioning-Scripts/Set-DnsServer.ps1"
       ws.vm.provision "shell", path: "Provisioning-Scripts/Join-Domain.ps1"
+      ws.vm.provision "shell", reboot: true # see Lab Requirements
     end
   end

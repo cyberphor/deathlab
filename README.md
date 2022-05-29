@@ -1,16 +1,22 @@
 ## Cybersecurity Labs
-Resources for deploying and using cybersecurity labs.
+This repo contains resources for deploying and using cybersecurity labs. 
 
-### Development Status
-| Virtual Machine | VirtualBox | ESXi |
-| --------------- | :--------: | :--: |
-| Firewall | :green_circle: | :white_circle: |
-| Domain Controller | :green_circle: | :yellow_circle: |
-| App Server | :yellow_circle: | :white_circle: |
-| WEC Server | :yellow_circle: | :white_circle: |
-| Workstation | :yellow_circle: | :white_circle: |
-| SIEM Server | :white_circle: | :white_circle: |
-| Adversary | :green_circle: | :white_circle: |
+**Active Directory Lab**  
+| Virtual Machine | Status | 
+| --------------- | :--------: | 
+| Domain Controller | :yellow_circle: | 
+| Workstation | :yellow_circle: | 
+
+**Detection Engineering Lab**  
+| Virtual Machine | Status | 
+| --------------- | :--------: | 
+| Firewall | :green_circle: | 
+| Domain Controller | :green_circle: | 
+| App Server | :yellow_circle: | 
+| WEC Server | :yellow_circle: | 
+| Workstation | :yellow_circle: | 
+| SIEM Server | :white_circle: | 
+| Adversary | :green_circle: | 
 
 ## Copyright
 This project is licensed under the terms of the [MIT license](/LICENSE).
