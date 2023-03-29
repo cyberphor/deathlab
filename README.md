@@ -1,5 +1,5 @@
-## Cybersecurity Labs
-This repo contains resources for deploying various cybersecurity labs using [VirtualBox](https://www.virtualbox.org/) and [Vagrant](https://www.vagrantup.com/intro). To see which labs are ready for use or still in development, see the [Development Tracker](/Docs/Development-Tracker.md).
+## Cyber Security Labs
+Resources for deploying various cybersecurity labs using VMWare, VirtualBox, Packer, and Vagrant. Please refer to the [Development Tracker](/Docs/Development-Tracker.md) for updates. 
 
 ### Copyright
 This project is licensed under the terms of the [MIT license](/LICENSE).

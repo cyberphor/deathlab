@@ -1,5 +1,8 @@
 ## Development Tracker
-This document summarizes the current development status of each lab included in this repo. Green (:green_circle:) means "ready for use." Yellow (:yellow_circle:) means "still in development." White (:white_circle:) means "not started."
+This document summarizes the current development status of each lab included in this repo. 
+* :green_circle: (Green): ready for use
+* :yellow_circle: (Yellow): still in development
+* :white_circle: (White): not started
 
 ### Active Directory Lab    
 | Virtual Machine | Status | 
