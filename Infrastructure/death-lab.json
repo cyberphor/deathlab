@@ -4,16 +4,16 @@
   "builders": [
     {
       "type": "vmware-iso",
-      "iso_url": "E:\\ISOs\\CentOS-7-x86_64-DVD-2009.iso",
+      "iso_url": "ISO-Files\\CentOS-7-x86_64-DVD-2009.iso",
       "iso_checksum": "E33D7B1EA7A9E2F38C8F693215DD85254C3A4FE446F93F563279715B68D07987",
-      "output_directory": "E:\\CentOS",
+      "output_directory": "Virtual-Machines\\CentOS",
       "vm_name": "CentOS",
       "cpus": "2",
       "memory": "1024",
       "disk_size": "8192",
       "http_directory": ".",
       "boot_command": [
-        "<tab><wait> ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/centos-ks.cfg<enter>"
+        "<tab><wait> ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/Configuration-Files/centos-ks.cfg<enter>"
       ],
       "communicator": "ssh",
       "ssh_timeout": "15m",

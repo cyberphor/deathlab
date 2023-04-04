@@ -1,1 +1,16 @@
+# ISOs
+Infrastructure/ISO-Files/*.iso
+
+# Packer Files
+Infrastructure/packer.exe
+Infrastructure/packer_cache/*
+
+# Vagrant Files
 .vagrant
+
+# Virtual Machine Files
+Infrastructure/Virtual-Machines/*/*.nvram
+Infrastructure/Virtual-Machines/*/*.vmsd
+Infrastructure/Virtual-Machines/*/*.vmx
+Infrastructure/Virtual-Machines/*/*.vmxf
+Infrastructure/Virtual-Machines/*/*.vmdk
