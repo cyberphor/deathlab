@@ -2,11 +2,11 @@
 Infrastructure/ISO-Files/*.iso
 
 # Packer Files
-Infrastructure/packer.exe
 Infrastructure/packer_cache/*
 
 # Vagrant Files
-.vagrant
+Infrastructure/.vagrant
+Infrastructure/Vagrant-Boxes/*.box
 
 # Virtual Machine Files
 Infrastructure/Virtual-Machines/*/*.nvram
