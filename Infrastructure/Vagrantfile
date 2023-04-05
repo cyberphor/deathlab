@@ -10,7 +10,7 @@ Vagrant.configure("2") do |config|
       vmware.vmx["name"] = "SIEM-Server"
       vmware.vmx["vumvcpus"] = "2"
       vmware.vmx["memory"] = "2048"
-      vmware.gui = false
+      vmware.gui = true
     end
     siem.vm.network :private_network,
       name: "VMware Network Adapter VMnet 1",
