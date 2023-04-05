@@ -11,7 +11,7 @@ cd Infrastructure/
 
 **Step 2.** Run Packer.
 ```
-packer build boxes.json
+packer build Vagrantboxes.json
 ```
 
 **Step 3.** Run Vagrant.
