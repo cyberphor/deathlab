@@ -11,7 +11,7 @@ cd Infrastructure/
 
 **Step 2.** Run Packer.
 ```
-packer build .\death-lab.json
+packer build boxes.json
 ```
 
 **Step 3.** Run Vagrant.
