@@ -7,19 +7,17 @@ Vagrant.configure("2") do |config|
   config.vm.define "siem" do |siem|
     siem.vm.box = "deathlab/centos"
     siem.vm.provider "vmware_desktop" do |vmware|
-      vmware.vmx["name"] = "SIEM-Server"
       vmware.vmx["vumvcpus"] = "2"
       vmware.vmx["memory"] = "2048"
       vmware.gui = true
     end
-    siem.vm.network :private_network,
+    siem.vm.network "private_network",
       name: "VMware Network Adapter VMnet 1",
       ip: "192.168.5.13", 
       netmask: "255.255.255.0"
     siem.vm.communicator = "ssh"
     siem.ssh.username = "vagrant"
     siem.ssh.password = "vagrant"
-    siem.vm.hostname = "siem"
   end
 end
 
@@ -70,17 +68,17 @@ end
 #     dc.winrm.transport = "plaintext" # see Lab Requirements
 #     dc.winrm.basic_auth_only = true # see Lab Requirements
 #     dc.vm.hostname = "dc1"
-#     dc.vm.provision "shell", path: "Provisioning-Scripts/Domain-Controller/New-AdForest.ps1"
+#     dc.vm.provision "shell", path: "New-AdForest.ps1"
 #     dc.vm.provision "shell", reboot: true # see Lab Requirements
-#     dc.vm.provision "shell", path: "Provisioning-Scripts/Set-DnsServer.ps1"
-#     dc.vm.provision "shell", path: "Provisioning-Scripts/Domain-Controller/Wait-ForAllRequiredServicesToStart.ps1"
-#     dc.vm.provision "shell", path: "Provisioning-Scripts/Domain-Controller/New-AdDomainAdmin.ps1"
-#     dc.vm.provision "shell", path: "Provisioning-Scripts/Domain-Controller/New-AdUserSet.ps1"
-#     dc.vm.provision "shell", path: "Provisioning-Scripts/Domain-Controller/New-GpoWallpaper.ps1"
-#     dc.vm.provision "shell", path: "Provisioning-Scripts/Domain-Controller/New-GpoDomainControllerTaskbar.ps1"
-#     dc.vm.provision "shell", path: "Provisioning-Scripts/Domain-Controller/New-GpoAuditPolicy.ps1"
-#     dc.vm.provision "shell", path: "Provisioning-Scripts/Domain-Controller/New-GpoWindowsRemoteManagement.ps1"
-#     dc.vm.provision "shell", path: "Provisioning-Scripts/Domain-Controller/New-GpoWindowsEventForwarding.ps1"
+#     dc.vm.provision "shell", path: "Set-DnsServer.ps1"
+#     dc.vm.provision "shell", path: "Wait-ForAllRequiredServicesToStart.ps1"
+#     dc.vm.provision "shell", path: "New-AdDomainAdmin.ps1"
+#     dc.vm.provision "shell", path: "New-AdUserSet.ps1"
+#     dc.vm.provision "shell", path: "New-GpoWallpaper.ps1"
+#     dc.vm.provision "shell", path: "New-GpoDomainControllerTaskbar.ps1"
+#     dc.vm.provision "shell", path: "New-GpoAuditPolicy.ps1"
+#     dc.vm.provision "shell", path: "New-GpoWindowsRemoteManagement.ps1"
+#     dc.vm.provision "shell", path: "New-GpoWindowsEventForwarding.ps1"
 #   end
 
 #   # Windows Event Collector (WEC) Server
@@ -100,8 +98,8 @@ end
 #     wec.winrm.transport = "plaintext" # see Lab Requirements
 #     wec.winrm.basic_auth_only = true # see Lab Requirements
 #     wec.vm.hostname = "wec1"
-#     wec.vm.provision "shell", path: "Provisioning-Scripts/Set-DnsServer.ps1"
-#     wec.vm.provision "shell", path: "Provisioning-Scripts/Join-Domain.ps1"
+#     wec.vm.provision "shell", path: "Set-DnsServer.ps1"
+#     wec.vm.provision "shell", path: "Join-Domain.ps1"
 #     wec.vm.provision "shell", reboot: true # see Lab Requirements
 #   end
 
@@ -122,8 +120,8 @@ end
 #     app.winrm.transport = "plaintext" # see Lab Requirements
 #     app.winrm.basic_auth_only = true # see Lab Requirements
 #     app.vm.hostname = "app1"
-#     app.vm.provision "shell", path: "Provisioning-Scripts/Set-DnsServer.ps1"
-#     app.vm.provision "shell", path: "Provisioning-Scripts/Join-Domain.ps1"
+#     app.vm.provision "shell", path: "Set-DnsServer.ps1"
+#     app.vm.provision "shell", path: "Join-Domain.ps1"
 #     app.vm.provision "shell", reboot: true # see Lab Requirements
 #   end
 

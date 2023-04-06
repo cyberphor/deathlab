@@ -3,14 +3,7 @@ This document summarizes the current development status of each lab included in 
 * :green_circle: (Green): ready for use
 * :yellow_circle: (Yellow): still in development
 * :white_circle: (White): not started
-
-### Active Directory Lab    
-| Virtual Machine | Status | 
-| --------------- | :--------: | 
-| Domain Controller | :yellow_circle: | 
-| Workstation | :yellow_circle: | 
-
-### Detection Engineering Lab    
+   
 | Virtual Machine | Status | 
 | --------------- | :--------: | 
 | Firewall | :green_circle: | 

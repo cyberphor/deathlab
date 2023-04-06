@@ -3,20 +3,20 @@ Welcome to my Detection Engineering and Threat Hunting (DEATH) Lab!
 
 ### Getting Started
 **Step 1.** Download Death Lab and the ISO files required. 
-```
+```bash
 git clone https://github.com/cyberphor/death-lab
 cd Infrastructure/
 # download commands go here
 ```
 
 **Step 2.** Run Packer.
-```
+```bash
 packer build Vagrantboxes.json
 ```
 
 **Step 3.** Run Vagrant.
-```
-vagrant box add --name "deathlab/centos" Vagrant-Boxes\CentOS.box 
+```bash
+vagrant box add --name "deathlab/centos" Vagrant-Boxes\CentOS.box --force
 vagrant up
 ```
 

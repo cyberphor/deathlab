@@ -1,12 +1,14 @@
 ## Lab Requirements
-**Software** (work-in-progress)  
-* VirtualBox
-* Vagrant
 
-**Hardware** (work-in-progress)  
+### Hardware
 * CPU: 16 cores
 * RAM: 32 GBs
 * Disk Space: 500 GBs 
+
+### Software
+* VMWare
+* Packer
+* Vagrant
 
 **Vagrant Plugins**  
 VirtualBox: `vagrant-vbguest`

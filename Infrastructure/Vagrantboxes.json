@@ -12,10 +12,10 @@
       "cpus": "2",
       "memory": "1024",
       "disk_size": "8192",
+      "network": "nat",
       "http_directory": ".",
-      "boot_command": [
-        "<tab><wait> ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/Configuration-Files/centos-ks.cfg<enter>"
-      ],
+      "boot_command": ["<tab><wait> ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/Configuration-Files/centos-ks.cfg<enter>"],
+      "shutdown_command": "sudo shutdown -h now",
       "communicator": "ssh",
       "ssh_timeout": "15m",
       "ssh_username": "vagrant",
@@ -27,7 +27,7 @@
       "only": ["CentOS"],
       "type": "vagrant",
       "output": "Vagrant-Boxes/CentOS.box",
-      "keep_input_artifact": false
+      "keep_input_artifact": true
     }
   ]
 } 
