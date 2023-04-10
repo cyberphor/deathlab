@@ -1,20 +1,19 @@
 Vagrant.configure("2") do |config|
-  unless Vagrant.has_plugin?("vagrant-vmware-desktop") # see Docs > Requirements
-    system("vagrant plugin install vagrant-vmware-desktop") 
-  end
-
   # Security Incident & Event Management (SIEM) Server
-  config.vm.define "siem" do |siem|
+  config.vm.define "SIEM Server" do |siem|
     siem.vm.box = "deathlab/centos"
-    siem.vm.provider "vmware_desktop" do |vmware|
-      vmware.vmx["vumvcpus"] = "2"
-      vmware.vmx["memory"] = "2048"
-      vmware.gui = true
+    siem.vm.provider "virtualbox" do |vb|
+      vb.name = "SIEM Server"
+      vb.cpus = 2
+      vb.memory = 2048
+      vb.gui = true
+      vb.check_guest_additions = false
     end
-    siem.vm.network "private_network",
-      name: "VMware Network Adapter VMnet 1",
-      ip: "192.168.5.13", 
-      netmask: "255.255.255.0"
+    #siem.vm.network "private_network", 
+    #  name: "VirtualBox Host-Only Ethernet Adapter",
+    #  ip: "192.168.56.13", 
+    #  netmask: "255.255.255.0", 
+    #  gateway: "192.168.56.1"
     siem.vm.communicator = "ssh"
     siem.ssh.username = "vagrant"
     siem.ssh.password = "vagrant"

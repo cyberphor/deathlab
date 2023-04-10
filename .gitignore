@@ -2,6 +2,7 @@
 Infrastructure/ISO-Files/*.iso
 
 # Packer Files
+Infrastructure/packer.log
 Infrastructure/packer_cache/*
 
 # Vagrant Files

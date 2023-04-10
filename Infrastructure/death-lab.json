@@ -1,0 +1,37 @@
+{
+  "min_packer_version": "1.8.6",
+  "description": "Creates Vagrant box files for a Detection Engineering and Threat Hunting (DEATH) lab.",
+  "builders": [
+    {
+      "name": "CentOS",
+      "type": "virtualbox-iso",
+      "iso_url": "ISO-Files/CentOS-7-x86_64-DVD-2009.iso",
+      "iso_checksum": "E33D7B1EA7A9E2F38C8F693215DD85254C3A4FE446F93F563279715B68D07987",
+      "output_directory": "Virtual-Machines/CentOS",
+      "vm_name": "CentOS",
+      "cpus": 2,
+      "memory": 8192,
+      "vboxmanage": [
+        ["modifyvm", "{{.Name}}", "--ioapic", "on"]
+      ],
+      "http_directory": ".",
+      "boot_command": [
+        "<up>",
+        "<enter>"
+      ],
+      "shutdown_command": "sudo systemctl poweroff",
+      "communicator": "ssh",
+      "ssh_username": "vagrant",
+      "ssh_password": "vagrant",
+      "ssh_timeout": "15m"
+    }
+  ],
+  "post-processors": [
+    {
+      "only": ["CentOS"],
+      "type": "vagrant",
+      "output": "Vagrant-Boxes/CentOS.box",
+      "keep_input_artifact": false
+    }
+  ]
+} 
