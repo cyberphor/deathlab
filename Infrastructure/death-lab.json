@@ -4,26 +4,30 @@
   "builders": [
     {
       "name": "CentOS",
-      "type": "virtualbox-iso",
-      "iso_url": "ISO-Files/CentOS-7-x86_64-DVD-2009.iso",
-      "iso_checksum": "E33D7B1EA7A9E2F38C8F693215DD85254C3A4FE446F93F563279715B68D07987",
-      "output_directory": "Virtual-Machines/CentOS",
       "vm_name": "CentOS",
+      "type": "virtualbox-iso",
+      "output_directory": "Virtual-Machines/CentOS",
+      "guest_os_type": "RedHat_64",
       "cpus": 2,
       "memory": 8192,
+      "iso_url": "ISO-Files/CentOS-7-x86_64-DVD-2009.iso",
+      "iso_checksum": "E33D7B1EA7A9E2F38C8F693215DD85254C3A4FE446F93F563279715B68D07987",
       "vboxmanage": [
-        ["modifyvm", "{{.Name}}", "--ioapic", "on"]
+        ["modifyvm", "{{.Name}}", "--ioapic", "on"],
+        ["storagectl", "{{.Name}}", "--name", "Floppy", "--add", "floppy"]
       ],
-      "http_directory": ".",
-      "boot_command": [
-        "<up>",
-        "<enter>"
+      "http_directory": "Configuration-Files",
+      "http_bind_address": "192.168.56.1",
+      "boot_command": [ 
+        "<tab> inst.ks=http://192.168.56.1:{{ .HTTPPort }}/ks.cfg<enter>",
+        "<wait><wait><wait><wait><wait><enter>",
+        "<wait><wait><wait><wait><wait><esc>"
       ],
-      "shutdown_command": "sudo systemctl poweroff",
       "communicator": "ssh",
       "ssh_username": "vagrant",
       "ssh_password": "vagrant",
-      "ssh_timeout": "15m"
+      "ssh_timeout": "15m",
+      "shutdown_command": "echo 'vagrant' | sudo -S systemctl poweroff"
     }
   ],
   "post-processors": [

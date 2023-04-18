@@ -1,2 +1,2 @@
 ## Virtual Machines
-Text goes here.
+This directory will contain the virtual machines deployed by Vagrant.
