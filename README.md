@@ -4,7 +4,7 @@ Welcome to my Detection Engineering and Threat Hunting (DEATH) Lab!
 ### Getting Started
 **Step 1.** Download Death Lab. 
 ```bash
-git clone https://github.com/cyberphor/death-lab
+git clone https://github.com/cyberphor/deathlab
 cd Infrastructure/
 ```
 
@@ -12,13 +12,13 @@ cd Infrastructure/
 
 **Step 3.** Run Packer.
 ```bash
-packer build death-lab.json
+packer build deathlab.json
 ```
 
 **Step 4.** Run Vagrant.
 ```bash
 vagrant plugin update
-vagrant box add --name "deathlab/centos" Vagrant-Boxes\CentOS.box --force
+vagrant box add --name "deathlab/siem-server" Vagrant-Boxes\SIEM-Server.box --force
 vagrant up
 ```
 

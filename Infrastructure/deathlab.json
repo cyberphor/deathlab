@@ -1,12 +1,18 @@
 {
   "min_packer_version": "1.8.6",
   "description": "Creates Vagrant Box files for a Detection Engineering and Threat Hunting (DEATH) lab.",
+  "provisioners": [
+    {
+      "type": "powershell",
+      "inline": [ "Write-Output 'Hello world!'" ]
+    }
+  ],
   "builders": [
     {
-      "name": "CentOS",
-      "vm_name": "CentOS",
+      "name": "SIEM-Server",
+      "vm_name": "SIEM-Server",
       "type": "virtualbox-iso",
-      "output_directory": "Virtual-Machines/CentOS",
+      "output_directory": "Virtual-Machines/SIEM-Server",
       "guest_os_type": "RedHat_64",
       "cpus": 2,
       "memory": 8192,
@@ -22,20 +28,22 @@
       "http_directory": "Configuration-Files",
       "http_bind_address": "192.168.56.1",
       "boot_command": [ 
-        "<up><tab> inst.ks=http://192.168.56.1:{{ .HTTPPort }}/ks.cfg<enter>",
+        "<up><tab> inst.ks=http://192.168.56.1:{{ .HTTPPort }}/SIEM-Server.cfg<enter>"
       ],
       "communicator": "ssh",
+      "ssh_host": "192.168.56.194",
+      "ssh_port": 22,
       "ssh_username": "vagrant",
       "ssh_password": "vagrant",
-      "ssh_timeout": "15m",
+      "ssh_timeout": "5m",
       "shutdown_command": "echo 'vagrant' | sudo -S systemctl poweroff"
     }
   ],
   "post-processors": [
     {
-      "only": ["CentOS"],
+      "only": ["SIEM-Server"],
       "type": "vagrant",
-      "output": "Vagrant-Boxes/CentOS.box",
+      "output": "Vagrant-Boxes/SIEM-Server.box",
       "keep_input_artifact": false
     }
   ]

@@ -1,7 +1,10 @@
 Vagrant.configure("2") do |config|
+  config.vm.provision "powershell", inline: "[Environment]::SetEnvironmentVariable('VBOX_HOME', '$PWD/Virtual-Machines', 'User')"
+  config.vm.provision "powershell", inline: "$env:VBOX_HOME"
+
   # Security Incident & Event Management (SIEM) Server
   config.vm.define "SIEM Server" do |siem|
-    siem.vm.box = "deathlab/centos"
+    siem.vm.box = "deathlab/siem-server"
     siem.vm.provider "virtualbox" do |vb|
       vb.name = "SIEM Server"
       vb.gui = true
