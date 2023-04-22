@@ -23,7 +23,6 @@
       "http_bind_address": "192.168.56.1",
       "boot_command": [ 
         "<up><tab> inst.ks=http://192.168.56.1:{{ .HTTPPort }}/ks.cfg<enter>",
-        "<wait><wait><wait><wait><wait><enter>"
       ],
       "communicator": "ssh",
       "ssh_username": "vagrant",
