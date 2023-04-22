@@ -9,10 +9,10 @@
 ### Network Information
 | Virtual Machine | Hostname | IP Address | Operating System | Apps |
 | --------------- | -------- | ---------- | ---------------- | ---- |
-| Firewall | | 192.168.5.254 | FreeBSD | pfsense |
-| Domain Controller | XOF5000DC1 | 192.168.1.5 | Windows Server 2019 | Active Directory |
-| Email Server | XOF5000APP | 192.168.1.11 | Windows Server 2019 | Mail Server |
-| Event Collector | XOF5000APP | 192.168.1.12 | Windows Server 2019 | Winlogbeat |
-| SIEM Server | XOF5000APP | 192.168.1.13 | CentOS 7 | Elasticsearch <br> Logstash <br> Kibana |
-| Workstation | XOF5000WK1 | 192.168.1.69 | Windows 11 | Chrome |
-| Adversary | XOF5000WK1 | DHCP Lease | Kali Linux | Hacker Tools |
+| Firewall | FW01 | 192.168.56.254 | FreeBSD | pfsense |
+| Workstation | WK01 | 192.168.56.01 | Windows 11 | Chrome |
+| Domain Controller | DC01 | 192.168.56.129 | Windows Server 2019 | Active Directory |
+| Email Server | MX01 | 192.168.56.130 | Windows Server 2019 | Mail Server |
+| Event Collector | EC01 | 192.168.56.193 | Windows Server 2019 | Winlogbeat |
+| SIEM Server | SIEM | 192.168.56.194 | CentOS 7 | Elasticsearch <br> Logstash <br> Kibana |
+| Adversary | APT0 | DHCP Lease | Kali Linux | Hacker Tools |
