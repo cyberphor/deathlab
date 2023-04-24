@@ -1,12 +1,6 @@
 {
   "min_packer_version": "1.8.6",
   "description": "Creates Vagrant Box files for a Detection Engineering and Threat Hunting (DEATH) lab.",
-  "provisioners": [
-    {
-      "type": "powershell",
-      "inline": [ "Write-Output 'Hello world!'" ]
-    }
-  ],
   "builders": [
     {
       "name": "SIEM-Server",
