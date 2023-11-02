@@ -1,17 +1,18 @@
 ## Death Lab
-Welcome to my Detection Engineering and Threat Hunting (DEATH) Lab!
+Death Lab is a Detection Engineering and Threat Hunting (DEATH) platform. 
 
 ### Getting Started
+**Local Deployment**
 **Step 1.** Download Death Lab. 
 ```bash
 git clone https://github.com/cyberphor/deathlab
-cd infrastructure/
 ```
 
-**Step 2.** Download the ISO files required (see [Requirements](/Docs/Requirements.md)). 
+**Step 2.** Download the software required. 
 
 **Step 3.** Run Packer.
 ```bash
+cd infrastructure/local/packer/
 packer build deathlab.json
 ```
 

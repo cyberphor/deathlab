@@ -1,4 +1,5 @@
-## Packer
+# Packer
+
 **Step 1.** Install VMWare Workstation Pro. 
 * [VMWare Workstation Pro](https://www.vmware.com/products/workstation-pro.html)
 

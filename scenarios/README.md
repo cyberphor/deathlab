@@ -1,4 +1,4 @@
-## Exercises
+## Scenarios
 **Planned**  
 MITRE-ATT&CK
 * T1071-C2
