@@ -12,8 +12,8 @@ git clone https://github.com/cyberphor/deathlab
 
 **Step 3.** Run Packer.
 ```bash
-cd infrastructure/local/packer/
-packer build deathlab.json
+cd infrastructure/
+packer build deathlab.pkr.hcl
 ```
 
 **Step 4.** Run Vagrant.

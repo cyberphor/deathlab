@@ -27,6 +27,14 @@ packer.exe build `
   -var "winrm_password=PasswordGoesHere" `
 ```
 
+## Troubleshooting
+* Error: "Could not determine network mappings..."
+  * Fix: [https://www.vgemba.net/vmware/Packer-Workstation-Error/](https://www.vgemba.net/vmware/Packer-Workstation-Error/)
+
+## Kickstart and Answer Files
+**Microsoft Windows**  
+[http://www.windowsafg.com](http://www.windowsafg.com)
+
 ## References
 * [https://www.ivobeerens.nl/2022/05/31/build-a-windows-10-image-with-packer-using-vmware-workstation/](https://www.ivobeerens.nl/2022/05/31/build-a-windows-10-image-with-packer-using-vmware-workstation/)
 * [https://github.com/ibeerens/Packer](https://github.com/ibeerens/Packer)
