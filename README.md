@@ -1,5 +1,5 @@
 ## Death Lab
-Death Lab is a Detection Engineering and Threat Hunting (DEATH) platform. 
+Detection Engineering and Threat Hunting (DEATH) Lab is a platform for developing security-related rules and queries. 
 
 ### Getting Started
 **Local Deployment**

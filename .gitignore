@@ -9,8 +9,4 @@ infrastructure/vagrant/.vagrant
 infrastructure/vagrant/*.box
 
 # Virtual Machine Files
-infrastructure/virtual-machines/*/*.nvram
-infrastructure/virtual-machines/*/*.vmsd
-infrastructure/virtual-machines/*/*.vmx
-infrastructure/virtual-machines/*/*.vmxf
-infrastructure/virtual-machines/*/*.vmdk
+infrastructure/virtual-machines/*/*

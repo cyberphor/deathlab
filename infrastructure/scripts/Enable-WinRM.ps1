@@ -1,20 +1,18 @@
-# Stop WinRM
-Stop-Service -Name winrm -Force
-Start-Sleep 60
+Write-Output "Start" | Out-File -Append C:\debug.log
 
-# Configure WinRM
-winrm quickconfig -quiet
-winrm quickconfig -transport:http
-winrm set winrm/config '@{MaxTimeoutms="1800000"}'
-winrm set winrm/config/winrs '@{MaxMemoryPerShellMB="2048"}'
-winrm set winrm/config/service '@{AllowUnencrypted="true"}'
-winrm set winrm/config/service/auth '@{Basic="true"}'
-winrm set winrm/config/client/auth '@{Basic="true"}'
-winrm set winrm/config/listener?Address=*+Transport=HTTP '@{Port="5985"}'
+# Enable WinRM
+Set-WSManQuickConfig -Force
 
-# Start WinRM
-Set-Service -Name winrm -StartupType Automatic
-Start-Service -Name winrm
+# Configure WinRM client settings
+Set-Item WSMan:\localhost\client\AllowUnencrypted -Value true
+Set-Item WSMan:\localhost\client\Auth\Basic -Value true
 
-# Configure firewall
-New-NetFirewallRule -DisplayName "WinRM" -Direction Inbound -Protocol TCP -LocalPort 5985 -Action Allow
+# Configure WinRM server settings
+Set-Item WSMan:\localhost\service\AllowUnencrypted -Value true
+Set-Item WSMan:\localhost\service\Auth\Basic -Value true
+
+# Allow WinRM through the firewall (Public)
+Set-NetFirewallRule -Name "WinRM-HTTP-In-TCP" -RemoteAddress Any 
+
+# Allow WinRM through the firewall (Private and Domain)
+Set-NetFirewallRule -Name "WinRM-HTTP-In-TCP-NoScope" -RemoteAddress Any
