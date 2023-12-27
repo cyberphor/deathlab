@@ -1,18 +1,15 @@
-Write-Output "Start" | Out-File -Append C:\debug.log
-
 # Enable WinRM
 Set-WSManQuickConfig -Force
-
-# Configure WinRM client settings
-Set-Item WSMan:\localhost\client\AllowUnencrypted -Value true
-Set-Item WSMan:\localhost\client\Auth\Basic -Value true
 
 # Configure WinRM server settings
 Set-Item WSMan:\localhost\service\AllowUnencrypted -Value true
 Set-Item WSMan:\localhost\service\Auth\Basic -Value true
 
-# Allow WinRM through the firewall (Public)
-Set-NetFirewallRule -Name "WinRM-HTTP-In-TCP" -RemoteAddress Any 
+# Change the firewall's network profile to Private
+Set-NetConnectionProfile -NetworkCategory Private
 
-# Allow WinRM through the firewall (Private and Domain)
-Set-NetFirewallRule -Name "WinRM-HTTP-In-TCP-NoScope" -RemoteAddress Any
+# Configure the firewall's Private network profile to allow inbound WinRM connections
+Set-NetFirewallRule -Name "WinRM-HTTP-In-TCP-NoScope" -Enabled True
+
+# Restart WinRM
+Restart-Service WinRM

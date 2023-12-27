@@ -58,7 +58,6 @@
                     <WillShowUI>Never</WillShowUI>
                 </ProductKey>
                 <AcceptEula>true</AcceptEula>
-                <FullName>Victor</FullName>
                 <Organization>deathlab</Organization>
             </UserData>
         </component>
@@ -91,7 +90,7 @@
                 <HideOEMRegistrationScreen>true</HideOEMRegistrationScreen>
                 <HideOnlineAccountScreens>true</HideOnlineAccountScreens>
                 <HideWirelessSetupInOOBE>true</HideWirelessSetupInOOBE>
-                <NetworkLocation>Work</NetworkLocation>
+                <NetworkLocation>Home</NetworkLocation>
                 <SkipUserOOBE>true</SkipUserOOBE>
                 <SkipMachineOOBE>true</SkipMachineOOBE>
                 <ProtectYourPC>3</ProtectYourPC>
@@ -99,14 +98,13 @@
             <UserAccounts>
                 <LocalAccounts>
                     <LocalAccount wcm:action="add">
-                        <Name>Victor</Name>
-                        <DisplayName>Victor</DisplayName>
+                        <DisplayName>Vagrant</DisplayName>
+                        <Name>vagrant</Name>
                         <Password>
-                            <Value>1qaz@WSX3edc$RFV</Value>
+                            <Value>vagrant</Value>
                             <PlainText>true</PlainText>
                         </Password>
                         <Group>Administrators</Group>
-                        <Description></Description>
                     </LocalAccount>
                 </LocalAccounts>
             </UserAccounts>
@@ -117,7 +115,7 @@
                     <Order>1</Order>
                     <Description>Set PowerShell Execution Policy</Description>
                     <RequiresUserInput>false</RequiresUserInput>
-                    <CommandLine>C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -Command "Set-ExecutionPolicy Unrestricted -Force"</CommandLine>
+                    <CommandLine>C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -Command "Set-ExecutionPolicy Bypass -Force"</CommandLine>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <Order>2</Order>

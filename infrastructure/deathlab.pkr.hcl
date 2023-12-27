@@ -17,8 +17,8 @@ source "vmware-iso" "windows11" {
     "scripts/Enable-WinRM.ps1"
   ]
   communicator        = "winrm"
-  winrm_username      = "victor"
-  winrm_password      = "1qaz@WSX3edc$RFV" 
+  winrm_username      = "vagrant"
+  winrm_password      = "vagrant" 
   shutdown_command    = "shutdown /s /t 000"
   output_directory    = "virtual-machines/${var.vm_name}"
 }
