@@ -23,5 +23,15 @@ vagrant box add --name "deathlab/siem-server" vagrant-boxes\SIEM-Server.box --fo
 vagrant up
 ```
 
+### Troubleshooting
+* Deleting the "packer_cache" folder between builds seems helpful for developing/debugging the autounattend.xml files
+
+### References
+**DetectionLab GitHub Repository**  
+[https://github.com/clong/DetectionLab](https://github.com/clong/DetectionLab)
+
+**Unattended Windows Setup Reference**  
+[https://learn.microsoft.com/en-us/windows-hardware/customize/desktop/unattend/](https://learn.microsoft.com/en-us/windows-hardware/customize/desktop/unattend/)
+
 ### Copyright
 This project is licensed under the terms of the [MIT license](/LICENSE).

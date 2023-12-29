@@ -11,10 +11,9 @@ source "vmware-iso" "windows11" {
   memory              = 8192
   disk_size           = 65536
   disk_adapter_type   = "ide"
-  network             = "nat"
   floppy_files        = [
     "configuration-files/autounattend.xml",
-    "scripts/Enable-WinRM.ps1"
+    "scripts/Enable-WinRM.ps1",
   ]
   communicator        = "winrm"
   winrm_username      = "vagrant"

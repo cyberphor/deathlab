@@ -6,16 +6,6 @@
             <InputLocale>0409:00000409</InputLocale>
         </component>
         <component name="Microsoft-Windows-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-            <RunSynchronous>
-                <RunSynchronousCommand wcm:action="add">
-                    <Order>1</Order>
-                    <Path>reg add HKLM\System\Setup\LabConfig /v BypassTPMCheck /t reg_dword /d 0x00000001 /f</Path>
-                </RunSynchronousCommand>
-                <RunSynchronousCommand wcm:action="add">
-                    <Order>2</Order>
-                    <Path>reg add HKLM\System\Setup\LabConfig /v BypassSecureBootCheck /t reg_dword /d 0x00000001 /f</Path>
-                </RunSynchronousCommand>
-            </RunSynchronous>
             <DiskConfiguration>
                 <Disk wcm:action="add">
                     <DiskID>0</DiskID>
@@ -52,13 +42,21 @@
                     </InstallTo>
                 </OSImage>
             </ImageInstall>
+            <RunSynchronous>
+                <RunSynchronousCommand wcm:action="add">
+                    <Order>1</Order>
+                    <Path>reg add HKLM\System\Setup\LabConfig /v BypassTPMCheck /t reg_dword /d 0x00000001 /f</Path>
+                </RunSynchronousCommand>
+                <RunSynchronousCommand wcm:action="add">
+                    <Order>2</Order>
+                    <Path>reg add HKLM\System\Setup\LabConfig /v BypassSecureBootCheck /t reg_dword /d 0x00000001 /f</Path>
+                </RunSynchronousCommand>
+            </RunSynchronous>
             <UserData>
                 <ProductKey>
                     <Key></Key>
-                    <WillShowUI>Never</WillShowUI>
                 </ProductKey>
                 <AcceptEula>true</AcceptEula>
-                <Organization>deathlab</Organization>
             </UserData>
         </component>
     </settings>
@@ -79,51 +77,40 @@
         <component name="Microsoft-Windows-SQMApi" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
             <CEIPEnabled>0</CEIPEnabled>
         </component>
-        <component name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-            <ComputerName>windows</ComputerName>
-        </component>
     </settings>
     <settings pass="oobeSystem">
         <component name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-            <OOBE>
-                <HideEULAPage>true</HideEULAPage>
-                <HideOEMRegistrationScreen>true</HideOEMRegistrationScreen>
-                <HideOnlineAccountScreens>true</HideOnlineAccountScreens>
-                <HideWirelessSetupInOOBE>true</HideWirelessSetupInOOBE>
-                <NetworkLocation>Home</NetworkLocation>
-                <SkipUserOOBE>true</SkipUserOOBE>
-                <SkipMachineOOBE>true</SkipMachineOOBE>
-                <ProtectYourPC>3</ProtectYourPC>
-            </OOBE>
-            <UserAccounts>
-                <LocalAccounts>
-                    <LocalAccount wcm:action="add">
-                        <DisplayName>Vagrant</DisplayName>
-                        <Name>vagrant</Name>
-                        <Password>
-                            <Value>vagrant</Value>
-                            <PlainText>true</PlainText>
-                        </Password>
-                        <Group>Administrators</Group>
-                    </LocalAccount>
-                </LocalAccounts>
-            </UserAccounts>
-            <TimeZone>UTC</TimeZone>
+            <ComputerName>XYZ9000WKS01</ComputerName>
             <DisableAutoDaylightTimeSet>false</DisableAutoDaylightTimeSet>
             <FirstLogonCommands>
                 <SynchronousCommand wcm:action="add">
                     <Order>1</Order>
                     <Description>Set PowerShell Execution Policy</Description>
                     <RequiresUserInput>false</RequiresUserInput>
-                    <CommandLine>C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -Command "Set-ExecutionPolicy Bypass -Force"</CommandLine>
-                </SynchronousCommand>
-                <SynchronousCommand wcm:action="add">
-                    <Order>2</Order>
-                    <Description>Enable-WinRM</Description>
-                    <RequiresUserInput>false</RequiresUserInput>
-                    <CommandLine>C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File "A:\Enable-WinRM.ps1"</CommandLine>
+                    <CommandLine>C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -Command "Set-ExecutionPolicy -ExecutionPolicy Bypass -Force"</CommandLine>
                 </SynchronousCommand>
             </FirstLogonCommands>
+            <OOBE>
+                <HideEULAPage>true</HideEULAPage>
+                <HideOEMRegistrationScreen>true</HideOEMRegistrationScreen>
+                <HideOnlineAccountScreens>true</HideOnlineAccountScreens>
+                <HideWirelessSetupInOOBE>true</HideWirelessSetupInOOBE>
+                <ProtectYourPC>3</ProtectYourPC>
+            </OOBE>
+            <TimeZone>UTC</TimeZone>
+            <UserAccounts>
+                <LocalAccounts>
+                    <LocalAccount wcm:action="add">
+                        <DisplayName>Vagrant</DisplayName>
+                        <Name>vagrant</Name>
+                        <Group>Administrators</Group>
+                        <Password>
+                            <Value>vagrant</Value>
+                            <PlainText>true</PlainText>
+                        </Password>
+                    </LocalAccount>
+                </LocalAccounts>
+            </UserAccounts>
         </component>
     </settings>
 </unattend>
