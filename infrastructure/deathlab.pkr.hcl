@@ -6,10 +6,11 @@ variable "vm_name" {
 source "vmware-iso" "windows11" {
   iso_url           = "operating-systems/Windows-11.iso"
   iso_checksum      = "sha256:C8DBC96B61D04C8B01FAF6CE0794FDF33965C7B350EAA3EB1E6697019902945C"
+  guest_os_type     = "windows9-64"
   vm_name           = var.vm_name
   cpus              = 2
   memory            = 8192
-  disk_adapter_type = "scsi"
+  disk_adapter_type = "ide"
   disk_size         = 65536
   floppy_files      = [
     "configuration-files/Autounattend.xml",

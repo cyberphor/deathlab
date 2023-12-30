@@ -8,24 +8,39 @@
         <component name="Microsoft-Windows-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
             <DiskConfiguration>
                 <Disk wcm:action="add">
-                    <DiskID>0</DiskID>
-                    <WillWipeDisk>true</WillWipeDisk>
+                    <DiskID>0</DiskID> 
+                    <WillWipeDisk>true</WillWipeDisk> 
                     <CreatePartitions>
                         <CreatePartition wcm:action="add">
-                            <Order>1</Order>
+                            <Order>1</Order> 
                             <Type>Primary</Type>
+                            <Size>350</Size> 
+                        </CreatePartition>
+                        <CreatePartition wcm:action="add">
+                            <Order>2</Order> 
+                            <Type>Primary</Type> 
                             <Extend>true</Extend>
                         </CreatePartition>
                     </CreatePartitions>
                     <ModifyPartitions>
                         <ModifyPartition wcm:action="add">
-                            <Order>1</Order>
-                            <PartitionID>1</PartitionID>
-                            <Label>Windows</Label>
-                            <Format>NTFS</Format>
+                            <Order>1</Order> 
+                            <PartitionID>1</PartitionID> 
+                            <Label>System</Label> 
+                            <Letter>S</Letter> 
+                            <Format>NTFS</Format> 
+                            <Active>true</Active> 
+                        </ModifyPartition>
+                        <ModifyPartition wcm:action="add">
+                            <Order>2</Order> 
+                            <PartitionID>2</PartitionID> 
+                            <Label>Windows</Label> 
+                            <Letter>C</Letter> 
+                            <Format>NTFS</Format> 
                         </ModifyPartition>
                     </ModifyPartitions>
                 </Disk>
+                <WillShowUI>OnError</WillShowUI> 
             </DiskConfiguration>
             <ImageInstall>
                 <OSImage>
@@ -35,10 +50,9 @@
                             <Value>Windows 11 Enterprise Evaluation</Value>
                         </MetaData>
                     </InstallFrom>
-                    <InstallToAvailablePartition>false</InstallToAvailablePartition>
                     <InstallTo>
-                        <DiskID>0</DiskID>
-                        <PartitionID>1</PartitionID>
+                        <DiskID>0</DiskID> 
+                        <PartitionID>2</PartitionID> 
                     </InstallTo>
                 </OSImage>
             </ImageInstall>
