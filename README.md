@@ -1,50 +1,50 @@
-## Death Lab
-Detection Engineering and Threat Hunting (DEATH) Lab is a platform for developing security-related rules and queries. 
+# Death Lab
+Detection Engineering and Threat Hunting (DEATH) Lab is a platform for developing security rules and queries. It was heavily inspired by [DetectionLab](https://github.com/clong/DetectionLab). 
+* [Requirements](/docs/requirements/README.md)
+* [Installation](#installation)
+* [Usage](#usage)
+* [Troubleshooting](/docs/troubleshooting/)
+* [References](/docs/references/README.md)
 
-### Getting Started
-**Local Deployment**
-**Step 1.** Download Death Lab. 
+## Installation
+**Step 1.** Download the software required. 
+
+**Step 2.** Download Death Lab. 
 ```bash
 git clone https://github.com/cyberphor/deathlab
+cd deathlab/
 ```
-
-**Step 2.** Download the software required. 
 
 **Step 3.** Run Packer.
 ```bash
-cd infrastructure/
+cd platform/
 packer build deathlab.pkr.hcl
 ```
 
 **Step 4.** Run Vagrant.
 ```bash
 vagrant plugin update
-vagrant box add --name "deathlab/siem-server" vagrant-boxes\SIEM-Server.box --force
+vagrant box add --name "deathlab/windows-11" vagrant/windows-11.box
 vagrant up
 ```
 
-### Troubleshooting
-**Packer Cache**  
-Deleting the "packer_cache" folder between builds seems helpful for developing/debugging the autounattend.xml files.
+## Usage
+### Account Information
+| Role         | Username           | Password         |
+| ------------ | ------------------ | ---------------- |
+| Domain Admin | elliot.alderson.da | 1qaz2wsx!QAZ@WSX | 
+| User         | elliot.alderson    | 1qaz2wsx!QAZ@WSX |
 
-**could not find a supported CD ISO creation command (the supported commands are: xorriso, mkisofs, hdiutil, oscdimg)**  
-If you're going to host Death Lab on a Windows machine, [Windows Assessment and Deployment Kit (ADK)](https://go.microsoft.com/fwlink/?linkid=2196127) includes "oscdimg." Make sure to update your execution path after installing the Windows ADK.
+### Network Information
+| Virtual Machine   | Hostname | IP Address     | Operating System    | Apps             |
+| ----------------- | -------- | -------------- | ------------------- | ---------------- |
+| Firewall          | FW01     | 192.168.56.254 | FreeBSD             | pfsense          |
+| Workstation       | WK01     | 192.168.56.01  | Windows 11          | Chrome           |
+| Domain Controller | DC01     | 192.168.56.129 | Windows Server 2019 | Active Directory |
+| Email Server      | MX01     | 192.168.56.130 | Windows Server 2019 | Mail Server      |
+| Event Collector   | EC01     | 192.168.56.193 | Windows Server 2019 | Winlogbeat       |
+| SIEM Server       | SIEM     | 192.168.56.194 | CentOS 7            | Elastic          |
+| Adversary         | APT0     | DHCP Lease     | Kali Linux          | Hacker Tools     |
 
-### References
-**DetectionLab GitHub Repository**  
-[https://github.com/clong/DetectionLab](https://github.com/clong/DetectionLab)
-
-**Unattended Windows Setup Reference**  
-[https://learn.microsoft.com/en-us/windows-hardware/customize/desktop/unattend/](https://learn.microsoft.com/en-us/windows-hardware/customize/desktop/unattend/)
-
-**Configure BIOS/MBR-Based Hard Drive Partitions by Using Windows Setup**
-[https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-8.1-and-8/hh825701(v=win.10)](https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-8.1-and-8/hh825701(v=win.10))
-
-**Installing Oscdimg Using the Windows 11 Assessment and Deployment Kit**  
-[https://answers.microsoft.com/en-us/windows/forum/all/downloading-the-oscdimg-utility-for-windows-11/bd0b478d-6df0-4dd9-8cae-3adb469405a0](https://answers.microsoft.com/en-us/windows/forum/all/downloading-the-oscdimg-utility-for-windows-11/bd0b478d-6df0-4dd9-8cae-3adb469405a0)
-
-**Packer and WinRM – Mystery Resolved**  
-[https://configmgr.nl/index.php/2020/11/01/packer-and-winrm-the-easy-way/](https://configmgr.nl/index.php/2020/11/01/packer-and-winrm-the-easy-way/)
-
-### Copyright
+## Copyright
 This project is licensed under the terms of the [MIT license](/LICENSE).
