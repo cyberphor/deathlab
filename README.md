@@ -1,5 +1,5 @@
 # Death Lab
-Detection Engineering and Threat Hunting (DEATH) Lab is a platform for developing security rules and queries. It was heavily inspired by [DetectionLab](https://github.com/clong/DetectionLab). 
+Detection Engineering and Threat Hunting (DEATH) Lab is a platform for developing security rules, queries, and playbooks. It was heavily inspired by [DetectionLab](https://github.com/clong/DetectionLab). 
 * [Requirements](/docs/requirements/README.md)
 * [Installation](#installation)
 * [Usage](#usage)
@@ -12,20 +12,29 @@ Detection Engineering and Threat Hunting (DEATH) Lab is a platform for developin
 **Step 2.** Download Death Lab. 
 ```bash
 git clone https://github.com/cyberphor/deathlab
-cd deathlab/
+cd deathlab/platform
 ```
 
-**Step 3.** Run Packer.
+**Step 3.** Login to Azure.
 ```bash
-cd platform/
-packer build deathlab.pkr.hcl
+az login
 ```
 
-**Step 4.** Run Vagrant.
+**Step 4.** Set your subscription. 
 ```bash
-vagrant plugin update
-vagrant box add --name "deathlab/windows-11" vagrant/windows-11.box
-vagrant up
+az account set --subscription "Personal"
+```
+
+**Step 5.** Run Terraform. 
+```bash
+terraform init
+terraform plan
+terraform apply -auto-approve
+```
+
+**Step 6.** Run Terraform again when you want to tear down Death Lab.
+```bash
+terraform destroy -auto-approve
 ```
 
 ## Usage
