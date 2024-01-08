@@ -34,16 +34,16 @@ resource "azurerm_public_ip" "bastion" {
   sku                 = "Standard"
 }
 
-resource "azurerm_bastion_host" "main" {
-  location               = var.location
-  resource_group_name    = var.resource_group_name
-  name                   = "bastion"
-  ip_configuration {
-    name                 = "bastion-nic-config"
-    subnet_id            = azurerm_subnet.bastion.id
-    public_ip_address_id = azurerm_public_ip.bastion.id
-  }
-}
+#resource "azurerm_bastion_host" "main" {
+#  location               = var.location
+#  resource_group_name    = var.resource_group_name
+#  name                   = "bastion"
+#  ip_configuration {
+#    name                 = "bastion-nic-config"
+#    subnet_id            = azurerm_subnet.bastion.id
+#    public_ip_address_id = azurerm_public_ip.bastion.id
+#  }
+#}
 
 resource "azurerm_network_interface" "dc-nic" {
   location                        = var.location
@@ -101,8 +101,21 @@ resource "azurerm_virtual_machine" "dc" {
   }
 }
 
+resource "azurerm_virtual_machine_extension" "dc" {
+  name                 = "dc-extension-test"
+  virtual_machine_id   = azurerm_virtual_machine.dc.id
+  publisher            = "Microsoft.Compute"
+  type                 = "CustomScriptExtension"
+  type_handler_version = "1.10"
+  protected_settings   = <<-EOF
+  {
+    "commandToExecute": "powershell.exe -EncodedCommand filebase64(${path.module}/New-AdForest.ps1)"
+  }
+  EOF
+}
+
 resource "azurerm_virtual_machine" "user" {
-  name                  = "usr"
+  name                  = "user"
   location              = var.location
   resource_group_name   = var.resource_group_name
   network_interface_ids = [
