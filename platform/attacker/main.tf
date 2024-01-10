@@ -1,3 +1,9 @@
+resource "azurerm_marketplace_agreement" "barracuda" {
+  publisher = "kali-linux"
+  offer     = "kali"
+  plan      = "kali"
+}
+
 resource "azurerm_virtual_machine" "attacker" {
   name                  = "attacker"
   location              = var.location
@@ -12,11 +18,10 @@ resource "azurerm_virtual_machine" "attacker" {
     create_option       = "FromImage"
     managed_disk_type   = "Premium_LRS"
   }
-  storage_image_reference {
-    publisher = "Canonical"
-    offer     = "UbuntuServer"
-    sku       = "16.04.0-LTS"
-    version   = "latest"
+  plan {
+    name                = "kali"
+    publisher           = "kali-linux"
+    product             = "kali-2023-4"
   }
   os_profile {
     computer_name       = "attacker"
