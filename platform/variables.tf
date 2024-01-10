@@ -3,10 +3,18 @@ variable "location" {
   default = "eastus"
 }
 
-variable "admin_username" {
-  default = "victor.fernandez.wa"
+variable "attacker_username" {
+  default = "victor"
 }
 
-variable "admin_password" {
+variable "attacker_password" {
+  default = "Password123!"
+}
+
+variable "local_admin_username" {
+  default = "elliot.alderson.wa"
+}
+
+variable "local_admin_password" {
   default = "Password123!"
 }
