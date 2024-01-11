@@ -1,7 +1,7 @@
-resource "azurerm_marketplace_agreement" "barracuda" {
+resource "azurerm_marketplace_agreement" "attacker" {
   publisher = "kali-linux"
-  offer     = "kali"
-  plan      = "kali"
+  offer     = "kali"        
+  plan      = "kali-2023-4" # sku
 }
 
 resource "azurerm_virtual_machine" "attacker" {
@@ -14,25 +14,23 @@ resource "azurerm_virtual_machine" "attacker" {
   vm_size               = "Standard_DS1_v2"
   storage_os_disk {
     name                = "attacker-os-disk"
-    caching             = "ReadWrite"
     create_option       = "FromImage"
-    managed_disk_type   = "Premium_LRS"
   }
   plan {
-    name                = "kali"
     publisher           = "kali-linux"
-    product             = "kali-2023-4"
+    product             = "kali"        # offer
+    name                = "kali-2023-4" # sku
   }
-  os_profile {
-    computer_name       = "attacker"
-    admin_username      = var.attacker_username
-    admin_password      = var.attacker_password
-  }
-  os_profile_linux_config {
-    disable_password_authentication = false
-    #ssh_keys {
-    #  path = "~/.ssh/authorized_keys"
-    #  key_data = file("~/.ssh/id_rsa.pub")
-    #}
-  }
+  #os_profile {
+  #  computer_name       = "attacker"
+  #  admin_username      = var.attacker_username
+  #  admin_password      = var.attacker_password
+  #}
+  #os_profile_linux_config {
+  #  disable_password_authentication = false
+  #  #ssh_keys {
+  #  #  path = "~/.ssh/authorized_keys"
+  #  #  key_data = file("~/.ssh/id_rsa.pub")
+  #  #}
+  #}
 }
