@@ -31,8 +31,4 @@ resource "azurerm_linux_virtual_machine" "attacker" {
   disable_password_authentication = false
   admin_username      = var.attacker_username
   admin_password      = var.attacker_password
-  ssh_keys {
-    path = "~/.ssh/authorized_keys"
-    key_data = file("~/.ssh/id_rsa.pub")
-  }
 }

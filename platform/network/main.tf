@@ -45,19 +45,30 @@ resource "azurerm_virtual_network_peering" "main_to_attacker" {
   remote_virtual_network_id = azurerm_virtual_network.attacker.id
 }
 
-resource "azurerm_subnet" "gateway" {
-  name                 = "gateway"
+resource "azurerm_subnet" "bastion" {
+  name                 = "AzureBastionSubnet"
   resource_group_name  = var.resource_group_name
   virtual_network_name = azurerm_virtual_network.main.name
-  address_prefixes     = ["192.168.0.0/24"]
+  address_prefixes     = ["192.168.0.0.0/24"]
 }
 
-resource "azurerm_public_ip" "gateway" {
+resource "azurerm_public_ip" "bastion" {
   location            = var.location
   resource_group_name = var.resource_group_name
-  name                = "gateway-public-ip"
+  name                = "bastion-public-ip"
   allocation_method   = "Static"
   sku                 = "Standard"
+}
+
+resource "azurerm_bastion_host" "main" {
+  location               = var.location
+  resource_group_name    = var.resource_group_name
+  name                   = "bastion"
+  ip_configuration {
+    name                 = "bastion-nic-config"
+    subnet_id            = azurerm_subnet.bastion.id
+    public_ip_address_id = azurerm_public_ip.bastion.id
+  }
 }
 
 resource "azurerm_subnet" "servers" {
@@ -121,4 +132,3 @@ resource "azurerm_network_interface" "user_nic" {
     private_ip_address            = "192.168.2.69"
   }
 }
-
