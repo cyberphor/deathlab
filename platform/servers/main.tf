@@ -20,7 +20,6 @@ resource "azurerm_windows_virtual_machine" "dc" {
   }
   computer_name             = "XYZ9000DC01"
   timezone                  = "UTC"
-  custom_data    = filebase64("${path.module}/scripts/Enable-WinRM.ps1")
   additional_unattend_content {
     setting      = "AutoLogon"
     content      = <<-EOF
@@ -48,7 +47,7 @@ resource "azurerm_windows_virtual_machine" "dc" {
           <Order>2</Order>
           <Description>Configure WinRM</Description>
           <RequiresUserInput>false</RequiresUserInput>
-          <CommandLine>powershell.exe -File "C:\Enable-WinRM.ps1"</CommandLine>
+          <CommandLine>powershell.exe -EncodedCommand ${textencodebase64(file("${path.module}/scripts/Enable-WinRM.ps1"), "UTF-16LE")}</CommandLine>
         </SynchronousCommand>
       </FirstLogonCommands>
     EOF
@@ -77,10 +76,9 @@ resource "azurerm_windows_virtual_machine" "wec" {
   }
   computer_name             = "XYZ9000WEC1"
   timezone                  = "UTC"
-  custom_data    = filebase64("${path.module}/scripts/Enable-WinRM.ps1")
   additional_unattend_content {
-    setting      = "AutoLogon"
-    content      = <<-EOF
+    setting                 = "AutoLogon"
+    content                 = <<-EOF
       <AutoLogon>
         <Enabled>true</Enabled>
         <Username>${var.local_admin_username}</Username>
