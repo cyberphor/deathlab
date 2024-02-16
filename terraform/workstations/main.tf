@@ -11,6 +11,7 @@ resource "azurerm_windows_virtual_machine" "user" {
   os_disk {
     caching                 = "ReadWrite"
     storage_account_type    = "Standard_LRS"
+    name                    = "user"
   }
   source_image_reference {
     publisher           = "MicrosoftWindowsDesktop"

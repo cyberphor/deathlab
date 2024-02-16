@@ -11,6 +11,7 @@ resource "azurerm_windows_virtual_machine" "dc" {
   os_disk {
     caching                 = "ReadWrite"
     storage_account_type    = "Standard_LRS"
+    name                    = "dc"
   }
   source_image_reference {
     publisher               = "MicrosoftWindowsServer"
@@ -47,7 +48,7 @@ resource "azurerm_windows_virtual_machine" "dc" {
           <Order>2</Order>
           <Description>Configure WinRM</Description>
           <RequiresUserInput>false</RequiresUserInput>
-          <CommandLine>powershell.exe -EncodedCommand ${textencodebase64(file("${path.module}/scripts/Enable-WinRM.ps1"), "UTF-16LE")}</CommandLine>
+          <CommandLine>powershell.exe -EncodedCommand ${textencodebase64(file("${path.module}/Enable-WinRM.ps1"), "UTF-16LE")}</CommandLine>
         </SynchronousCommand>
       </FirstLogonCommands>
     EOF
@@ -67,6 +68,7 @@ resource "azurerm_windows_virtual_machine" "wec" {
   os_disk {
     caching                 = "ReadWrite"
     storage_account_type    = "Standard_LRS"
+    name                    = "wec"
   }
   source_image_reference {
     publisher               = "MicrosoftWindowsServer"
@@ -103,7 +105,7 @@ resource "azurerm_windows_virtual_machine" "wec" {
           <Order>2</Order>
           <Description>Configure WinRM</Description>
           <RequiresUserInput>false</RequiresUserInput>
-          <CommandLine>powershell.exe -File "C:\Enable-WinRM.ps1"</CommandLine>
+          <CommandLine>powershell.exe -EncodedCommand ${textencodebase64(file("${path.module}/Enable-WinRM.ps1"), "UTF-16LE")}</CommandLine>
         </SynchronousCommand>
       </FirstLogonCommands>
     EOF
@@ -116,13 +118,17 @@ resource "azurerm_linux_virtual_machine" "velociraptor" {
   resource_group_name             = var.resource_group_name
   size                            = "Standard_DS1_v2"
   admin_username                  = var.local_admin_username
-  admin_password                  = var.local_admin_password
+  admin_ssh_key {
+    username                      = var.local_admin_username
+    public_key                    = file("~/.ssh/id_rsa.pub")
+  }
   network_interface_ids           = [
     var.velociraptor_nic_id
   ]
   os_disk {
     caching                       = "ReadWrite"
     storage_account_type          = "Standard_LRS"
+    name                          = "velociraptor"
   }
   source_image_reference {
     publisher                     = "Canonical"
@@ -131,5 +137,4 @@ resource "azurerm_linux_virtual_machine" "velociraptor" {
     version                       = "latest"
   }
   computer_name                   = "XYZ9000VR01"
-  disable_password_authentication = false
 }

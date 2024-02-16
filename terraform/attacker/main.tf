@@ -12,6 +12,7 @@ resource "azurerm_linux_virtual_machine" "attacker" {
   os_disk {
     caching              = "ReadWrite"
     storage_account_type = "Standard_LRS"
+    name                 = "attacker" 
   }
   plan {
     publisher            = "kali-linux"

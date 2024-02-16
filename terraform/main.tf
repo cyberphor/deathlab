@@ -1,28 +1,24 @@
-terraform {
-  required_providers {
-    azurerm = {
-      source  = "hashicorp/azurerm"
-      version = "=3.0.0"
-    }
-  }
-}
-
-provider "azurerm" {
-  features {}
-}
-
 resource "azurerm_resource_group" "main" {
   name     = "deathlab"
   location = var.location
 }
 
-module "attacker" {
-  source              = "./attacker"
-  location            = var.location
-  resource_group_name = azurerm_resource_group.main.name
-  attacker_nic_id     = module.network.attacker_nic_id
-  attacker_username   = var.attacker_username
-  attacker_password   = var.attacker_password 
+#module "attacker" {
+#  source              = "./attacker"
+#  location            = var.location
+#  resource_group_name = azurerm_resource_group.main.name
+#  attacker_nic_id     = module.network.attacker_nic_id
+#  attacker_username   = var.attacker_username
+#  attacker_password   = var.attacker_password 
+#}
+
+module "bastion" {
+  source               = "./bastion"
+  location             = var.location
+  resource_group_name  = azurerm_resource_group.main.name
+  bastion_nic_id       = module.network.bastion_nic_id
+  bastion_username     = var.bastion_username
+  bastion_password     = var.bastion_password 
 }
 
 module "network" {
