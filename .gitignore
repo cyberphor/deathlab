@@ -1,2 +1,3 @@
-terraform/.terraform*
-terraform/terraform.tfstate*
+azure/terraform/.terraform*
+azure/terraform/terraform.tfstate**
+vmware-workstation/iso-files/*.iso

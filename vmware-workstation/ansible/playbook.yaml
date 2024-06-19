@@ -1,0 +1,7 @@
+---
+- hosts: all
+  become: true
+  tasks:
+  - name: Installing Velociraptor
+    ansible.builtin.shell: |
+      apt update
