@@ -18,7 +18,7 @@ packer {
 
 source "vmware-iso" "workstation" {
   iso_url           = "iso-files/windows-11.iso"
-  iso_checksum      = "sha256:C8DBC96B61D04C8B01FAF6CE0794FDF33965C7B350EAA3EB1E6697019902945C"
+  iso_checksum      = "sha256:36DE5ECB7A0DAA58DCE68C03B9465A543ED0F5498AA8AE60AB45FB7C8C4AE402"
   vm_name           = "Workstation"
   guest_os_type     = "windows9-64"
   cpus              = 2
@@ -26,14 +26,14 @@ source "vmware-iso" "workstation" {
   disk_adapter_type = "ide"
   disk_size         = 65536
   floppy_files      = [
-    "../kickstart/autounattend.xml",
-    "scripts/Enable-WinRM.ps1",
+    "../init-files/autounattend.xml",
+    "../scripts/Enable-WinRM.ps1",
   ]
   communicator      = "winrm"
   winrm_username    = "vagrant"
   winrm_password    = "vagrant" 
   shutdown_command  = "shutdown /s /t 000"
-  output_directory  = "../virtual-machines/windows-11"
+  output_directory  = "../virtual-machines/workstation"
 }
 
 source "vmware-iso" "domain-controller" {
@@ -76,12 +76,33 @@ source "vmware-iso" "event-collector" {
   output_directory  = "../virtual-machines/event-collector"
 }
 
+source "vmware-iso" "web-app" {
+  iso_url           = "../iso-files/ubuntu-22.04.4-live-server-amd64.iso"
+  iso_checksum      = "sha256:45F873DE9F8CB637345D6E66A583762730BBEA30277EF7B32C9C3BD6700A32B2"
+  cpus              = "2"
+  memory            = "4096"
+  http_directory    = "../init-files/web-app/"
+  boot_wait         = "10s"
+  boot_command      = [
+    "c",
+    "<wait>",
+    "linux /casper/vmlinuz --- autoinstall ",
+    "ds='nocloud-net;s=http://{{ .HTTPIP }}:{{ .HTTPPort }}/'<enter>",
+    "<wait3s>initrd /casper/initrd <enter>",
+    "<wait3s>boot <enter>",
+  ]
+  ssh_username      = "vagrant"
+  ssh_password      = "vagrant"
+  shutdown_command  = "echo 'vagrant' | sudo -S shutdown -P now"
+  output_directory  = "../virtual-machines/web-app"
+}
+
 source "vmware-iso" "velociraptor" {
   iso_url           = "../iso-files/CentOS-7-x86_64-Minimal-2009.iso"
   iso_checksum      = "sha256:07b94e6b1a0b0260b94c83d6bb76b26bf7a310dc78d7a9c7432809fb9bc6194a"
   cpus              = "2"
   memory            = "4096"
-  http_directory    = "../init-files/"
+  http_directory    = "../init-files/velociraptor/"
   boot_wait         = "10s"
   boot_command      = [
     "<up><tab> ",
@@ -98,7 +119,7 @@ source "vmware-iso" "attacker" {
   iso_checksum      = "sha256:07b94e6b1a0b0260b94c83d6bb76b26bf7a310dc78d7a9c7432809fb9bc6194a"
   cpus              = "2"
   memory            = "4096"
-  http_directory    = "../init-files/"
+  http_directory    = "../init-files/attacker/"
   boot_wait         = "10s"
   boot_command      = [
     "<up><tab> ",
@@ -112,11 +133,11 @@ source "vmware-iso" "attacker" {
 
 build {
   sources                = [
-    #"source.vmware-iso.workstation",
+    "source.vmware-iso.web-app",
     #"source.vmware-iso.domain-controller",
     #"source.vmware-iso.event-collector",
     #"source.vmware-iso.attacker",
-    "source.vmware-iso.velociraptor"
+    #"source.vmware-iso.velociraptor"
   ]
 
   # commenting this out (currently developing Death Lab on Windows; Ansible is not Windows-friendly)
@@ -128,8 +149,14 @@ build {
   #}
 
   post-processor "vagrant" {
-    only   = ["vmware-iso.velociraptor"]
+    only   = ["vmware-iso.web-app"]
     keep_input_artifact  = false
-    output               = "../vagrant/boxes/velociraptor.box"
+    output               = "../vagrant/boxes/web-app.box"
   }
+
+  #post-processor "vagrant" {
+  #  only   = ["vmware-iso.velociraptor"]
+  #  keep_input_artifact  = false
+  #  output               = "../vagrant/boxes/velociraptor.box"
+  #}
 }

@@ -13,6 +13,10 @@
 * Disk Space: 500 GBs 
 
 ### Software Requirements
+* [Windows 11](https://www.microsoft.com/software-download/windows11)
+* [Windows Server 2022](https://info.microsoft.com/ww-landing-windows-server-2022.html)
+* [Ubuntu 22.04](https://releases.ubuntu.com/jammy/ubuntu-22.04.4-live-server-amd64.iso)
+* [CentOS 7](https://www.centos.org/download/)
 * [Packer (1.11.0)](https://developer.hashicorp.com/packer/downloads)
 * [Vagrant (2.4.0)](https://developer.hashicorp.com/vagrant/install)
 * [Vagrant VMware Utility](https://developer.hashicorp.com/vagrant/install/vmware)
@@ -141,9 +145,24 @@ flowchart LR
 | Adversary         | APT0     | DHCP Lease   | Kali Linux          | Hacker Tools     |
 
 ## Troubleshooting
-**Packer Cache**  
-Deleting the `packer_cache` folder between builds seems helpful for developing/debugging the autounattend.xml files.
+### Packer
+**packer_cache Folder**  
+Deleting the `packer_cache` folder between builds is helpful when developing `autounattend.xml` files.
+```bash
+Remove-Item .\packer_cache -Recurse -Force  
+```
 
+### Vagrant
+**.vagrant Folder**  
+Deleting the `.vagrant` folder between builds is helpful when developing Vagrantfiles.
+```bash
+Remove-Item .\.vagrant\ -Recurse -Force
+```
+
+**Networking**  
+The default connection type created is NAT. 
+
+### Miscellaneous
 **could not find a supported CD ISO creation command (the supported commands are: xorriso, mkisofs, hdiutil, oscdimg)**  
 If you're going to host Death Lab on a Windows machine, [Windows Assessment and Deployment Kit (ADK)](https://go.microsoft.com/fwlink/?linkid=2196127) includes "oscdimg." Make sure to update your execution path after installing the Windows ADK.
 
