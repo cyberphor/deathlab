@@ -1,3 +1,7 @@
 azure/terraform/.terraform*
 azure/terraform/terraform.tfstate**
 vmware-workstation/iso-files/*.iso
+vmware-workstation/packer/packer_cache/
+vmware-workstation/virtual-machines/*/
+vmware-workstation/vagrant/boxes/*.box
+vmware-workstation/vagrant/.vagrant/

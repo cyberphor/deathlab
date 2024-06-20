@@ -14,7 +14,8 @@
 
 ### Software Requirements
 * [Packer (1.11.0)](https://developer.hashicorp.com/packer/downloads)
-* [Vagrant (2.3.4)](https://developer.hashicorp.com/vagrant/downloads)
+* [Vagrant (2.4.0)](https://developer.hashicorp.com/vagrant/install)
+* [Vagrant VMware Utility](https://developer.hashicorp.com/vagrant/install/vmware)
 * [Terraform](https://developer.hashicorp.com/terraform/install?)
 * [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli)
 
@@ -78,6 +79,21 @@ The configuration is valid.
 **Step 4.** Run Packer.
 ```bash
 packer build .
+```
+
+**Step 5.** Text goes here.
+```bash
+cd ../vagrant/
+```
+
+**Step 6.** Text goes here.
+```bash
+vagrant box add velociraptor boxes/velociraptor.box
+```
+
+**Step 7.** Text goes here.
+```bash
+vagrant up
 ```
 
 ## Usage
